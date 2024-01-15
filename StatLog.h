@@ -11,6 +11,7 @@
 #define StatLog_H
 
 //--------------------------------------------------- Interfaces utilisées
+#include <map>
 
 //------------------------------------------------------------- Constantes
 
@@ -33,6 +34,15 @@ public:
     //
     // Contrat :
     //
+
+    void makeMapLine(struct ...);
+
+    void makeMap();
+
+    void makeTop10();
+
+    void makeDotFile();
+
 
 
 //------------------------------------------------- Surcharge d'opérateurs
