@@ -1,12 +1,12 @@
 /*************************************************************************
-                           Xxx  -  description
+                           ReadFile  -  description
                              -------------------
     début                : $DATE$
     copyright            : (C) $YEAR$ par $AUTHOR$
     e-mail               : $EMAIL$
 *************************************************************************/
 
-//---------- Réalisation de la classe <Xxx> (fichier Xxx.cpp) ------------
+//---------- Réalisation de la classe <ReadFile> (fichier ReadFile.cpp) ------------
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -15,14 +15,14 @@ using namespace std;
 #include <iostream>
 
 //------------------------------------------------------ Include personnel
-#include "Xxx.h"
+#include "ReadFile.h"
 
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type Xxx::Méthode ( liste des paramètres )
+// type ReadFile::Méthode ( liste des paramètres )
 // Algorithme :
 //
 //{
@@ -30,7 +30,7 @@ using namespace std;
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-Xxx & Xxx::operator = ( const Xxx & unXxx )
+ReadFile & ReadFile::operator = ( const ReadFile & unReadFile )
 // Algorithme :
 //
 {
@@ -38,34 +38,34 @@ Xxx & Xxx::operator = ( const Xxx & unXxx )
 
 
 //-------------------------------------------- Constructeurs - destructeur
-Xxx::Xxx ( const Xxx & unXxx )
+ReadFile::ReadFile ( const ReadFile & unReadFile )
 // Algorithme :
 //
 {
 #ifdef MAP
-    cout << "Appel au constructeur de copie de <Xxx>" << endl;
+    cout << "Appel au constructeur de copie de <ReadFile>" << endl;
 #endif
-} //----- Fin de Xxx (constructeur de copie)
+} //----- Fin de ReadFile (constructeur de copie)
 
 
-Xxx::Xxx ( )
+ReadFile::ReadFile ( )
 // Algorithme :
 //
 {
 #ifdef MAP
-    cout << "Appel au constructeur de <Xxx>" << endl;
+    cout << "Appel au constructeur de <ReadFile>" << endl;
 #endif
-} //----- Fin de Xxx
+} //----- Fin de ReadFile
 
 
-Xxx::~Xxx ( )
+ReadFile::~ReadFile ( )
 // Algorithme :
 //
 {
 #ifdef MAP
-    cout << "Appel au destructeur de <Xxx>" << endl;
+    cout << "Appel au destructeur de <ReadFile>" << endl;
 #endif
-} //----- Fin de ~Xxx
+} //----- Fin de ~ReadFile
 
 
 //------------------------------------------------------------------ PRIVE

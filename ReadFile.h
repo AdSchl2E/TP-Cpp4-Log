@@ -1,14 +1,14 @@
 /*************************************************************************
-                           Xxx  -  description
+                           ReadFile  -  description
                              -------------------
     début                : $DATE$
     copyright            : (C) $YEAR$ par $AUTHOR$
     e-mail               : $EMAIL$
 *************************************************************************/
 
-//---------- Interface de la classe <Xxx> (fichier Xxx.h) ----------------
-#if ! defined ( XXX_H )
-#define XXX_H
+//---------- Interface de la classe <ReadFile> (fichier ReadFile.h) ----------------
+#if ! defined ( ReadFile_H )
+#define ReadFile_H
 
 //--------------------------------------------------- Interfaces utilisées
 
@@ -17,12 +17,12 @@
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
-// Rôle de la classe <Xxx>
+// Rôle de la classe <ReadFile>
 //
 //
 //------------------------------------------------------------------------
 
-class Xxx : public Ancetre
+class ReadFile : public Ancetre
 {
 //----------------------------------------------------------------- PUBLIC
 
@@ -36,7 +36,7 @@ public:
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-    Xxx & operator = ( const Xxx & unXxx );
+    ReadFile & operator = ( const ReadFile & unReadFile );
     // Mode d'emploi :
     //
     // Contrat :
@@ -44,19 +44,19 @@ public:
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    Xxx ( const Xxx & unXxx );
+    ReadFile ( const ReadFile & unReadFile );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
     //
 
-    Xxx ( );
+    ReadFile ( );
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-    virtual ~Xxx ( );
+    virtual ~ReadFile ( );
     // Mode d'emploi :
     //
     // Contrat :
@@ -71,7 +71,7 @@ protected:
 
 };
 
-//-------------------------------- Autres définitions dépendantes de <Xxx>
+//-------------------------------- Autres définitions dépendantes de <ReadFile>
 
-#endif // XXX_H
+#endif // ReadFile_H
 

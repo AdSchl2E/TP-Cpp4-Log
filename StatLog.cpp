@@ -1,12 +1,12 @@
 /*************************************************************************
-                           Xxx  -  description
+                           StatLog  -  description
                              -------------------
     début                : $DATE$
     copyright            : (C) $YEAR$ par $AUTHOR$
     e-mail               : $EMAIL$
 *************************************************************************/
 
-//---------- Réalisation de la classe <Xxx> (fichier Xxx.cpp) ------------
+//---------- Réalisation de la classe <StatLog> (fichier StatLog.cpp) ------------
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -15,14 +15,14 @@ using namespace std;
 #include <iostream>
 
 //------------------------------------------------------ Include personnel
-#include "Xxx.h"
+#include "StatLog.h"
 
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type Xxx::Méthode ( liste des paramètres )
+// type StatLog::Méthode ( liste des paramètres )
 // Algorithme :
 //
 //{
@@ -30,7 +30,7 @@ using namespace std;
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-Xxx & Xxx::operator = ( const Xxx & unXxx )
+StatLog & StatLog::operator = ( const StatLog & unStatLog )
 // Algorithme :
 //
 {
@@ -38,34 +38,34 @@ Xxx & Xxx::operator = ( const Xxx & unXxx )
 
 
 //-------------------------------------------- Constructeurs - destructeur
-Xxx::Xxx ( const Xxx & unXxx )
+StatLog::StatLog ( const StatLog & unStatLog )
 // Algorithme :
 //
 {
 #ifdef MAP
-    cout << "Appel au constructeur de copie de <Xxx>" << endl;
+    cout << "Appel au constructeur de copie de <StatLog>" << endl;
 #endif
-} //----- Fin de Xxx (constructeur de copie)
+} //----- Fin de StatLog (constructeur de copie)
 
 
-Xxx::Xxx ( )
+StatLog::StatLog ( )
 // Algorithme :
 //
 {
 #ifdef MAP
-    cout << "Appel au constructeur de <Xxx>" << endl;
+    cout << "Appel au constructeur de <StatLog>" << endl;
 #endif
-} //----- Fin de Xxx
+} //----- Fin de StatLog
 
 
-Xxx::~Xxx ( )
+StatLog::~StatLog ( )
 // Algorithme :
 //
 {
 #ifdef MAP
-    cout << "Appel au destructeur de <Xxx>" << endl;
+    cout << "Appel au destructeur de <StatLog>" << endl;
 #endif
-} //----- Fin de ~Xxx
+} //----- Fin de ~StatLog
 
 
 //------------------------------------------------------------------ PRIVE
