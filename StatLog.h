@@ -35,9 +35,9 @@ public:
     // Contrat :
     //
 
-    void makeMapLine(struct ...);
+    void makeMapLine(bool extFilter, int startHeure = -1);
 
-    void makeMap();
+    void makeMap(bool extFilter, int startHeure = -1);
 
     void makeTop10();
 

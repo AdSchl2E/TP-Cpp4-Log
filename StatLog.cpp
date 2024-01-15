@@ -28,6 +28,22 @@ using namespace std;
 //{
 //} //----- Fin de Méthode
 
+void StatLog::makeMapLine(bool extFilter, int startHeure)
+{
+    if (startHeure != -1){
+        int intHeure = int(getHeure) + int(getMinute) + int(getSeconde);
+        if (intHeure > startHeure || (startHeure > 230000 && startHeure + 10000 - 240000 > intHeure)){
+            if (extFilter){
+
+            }
+        }
+        
+    }
+    return;
+
+    
+}
+
 
 //------------------------------------------------- Surcharge d'opérateurs
 StatLog & StatLog::operator = ( const StatLog & unStatLog )
