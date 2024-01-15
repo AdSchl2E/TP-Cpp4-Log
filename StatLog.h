@@ -37,7 +37,7 @@ public:
     // Contrat :
     //
 
-    void makeMapLine(struct ...);
+    void makeMapLine();
 
     void makeMap();
 
@@ -87,4 +87,3 @@ protected:
 //-------------------------------- Autres définitions dépendantes de <StatLog>
 
 #endif // StatLog_H
-

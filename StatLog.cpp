@@ -22,11 +22,21 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type StatLog::Méthode ( liste des paramètres )
+void StatLog::makeTop10 ( void )
 // Algorithme :
 //
-//{
-//} //----- Fin de Méthode
+{
+    for ( map < string, map < string, int > >::iterator it = graph.begin ( ) ; it != graph.end ( ) ; ++it  )
+    {
+        cout << it -> first << endl;
+
+        for ( map < string, int >::iterator it2 = it -> second.begin ( ) ; it2 != it -> second.end ( ) ; ++it2  )
+        {
+            cout << ">>>" << it2 -> first << endl;
+            cout << ">>>" << it2 -> second << endl;
+        }
+    }
+} //----- makeTop10
 
 
 //------------------------------------------------- Surcharge d'opérateurs
