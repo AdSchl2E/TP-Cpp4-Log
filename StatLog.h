@@ -37,6 +37,24 @@ public:
     // Contrat :
     //
 
+    void makeMapLine(struct ...);
+
+    void makeMap();
+
+    void makeTop10();
+
+    void makeDotFile();
+
+
+
+//------------------------------------------------- Surcharge d'opérateurs
+    StatLog & operator = ( const StatLog & unStatLog );
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+
+
 //-------------------------------------------- Constructeurs - destructeur
     StatLog ( const StatLog & unStatLog );
     // Mode d'emploi (constructeur de copie) :
