@@ -26,6 +26,8 @@ void StatLog::makeTop10 ( void )
 // Algorithme :
 //
 {
+    map < string, int > hitsByCible;
+    
     for ( map < string, map < string, int > >::iterator it = graph.begin ( ) ; it != graph.end ( ) ; ++it  )
     {
         cout << it -> first << endl;
