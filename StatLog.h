@@ -12,7 +12,9 @@
 
 //--------------------------------------------------- Interfaces utilisées
 #include <map>
-
+#include <list>
+#include <string>
+using namespace std;
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
@@ -23,7 +25,7 @@
 //
 //------------------------------------------------------------------------
 
-class StatLog : public Ancetre
+class StatLog
 {
 //----------------------------------------------------------------- PUBLIC
 
@@ -78,10 +80,10 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-
+    list < string > listeNode;
+    map < string, map < string, int > > graph;
 };
 
 //-------------------------------- Autres définitions dépendantes de <StatLog>
 
 #endif // StatLog_H
-
