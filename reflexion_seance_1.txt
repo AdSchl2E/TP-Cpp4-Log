@@ -1,0 +1,34 @@
+--- Projet C++ avancé ---
+date de rendu : 5 février
+
+cas d'input foireuse à prévoir :
+	- le fichier log
+		- n'existe pas
+		- fait moins de 10 lignes
+		- est vide
+	- option qui n'existe pas
+	- -g ou -t seul ou param erroné
+	- -e avec un param > erreur
+	- lancement du programme sans argument
+	
+	- vérifier que les option peuvent s'enchaîner (combinaison la plus grande)
+	
+à chaque fois renvoyer le menu d'explication de l'option qui foire ou indiquer "problème avec le fichier"
+	
+nouvelles options
+-u [base] indique la base à retirer (sinon ne retire rien)
+-help/-h parce que c'est pratique quand même
+-r inclure les redirections ("-" sur la cible + code x ( où 300 < x <399))
+	toujours supprimer les code 400,500 ce sont des erreurs d'accès
+
+
+structure de fichier
+
+statlog
+objectif : analyse les données d'une ligne de log pour répondre au pb (on veut referer, target et hour), puis créé un .dot avec les données analysées
+attribut : listenode conteneur list contenant chaque target / referer une fois
+	   graph conteneur map(map()) source : (dest : hit) 
+	   /!\ dans graph on ne met que des pointeurs vers source et dest et pas les URL direct
+
+readfile > hérité de ifstream
+objectif : lit la première ligne d'un fichier log et extrait toutes ses infos, dispose de get pour donner ses attributs (/!\ bien mettre des const)
