@@ -14,6 +14,9 @@
 using namespace std;
 #include <iostream>
 #include <vector>
+#include <fstream>
+#include <algorithm>
+
 
 //------------------------------------------------------ Include personnel
 #include "StatLog.h"
@@ -49,6 +52,8 @@ void StatLog::makeTop10 ( void )
 } //----- makeTop10
 
 void StatLog::makeMapLine(bool extFilter, int startHeure)
+// Algorithme :
+//
 {
     vector <string> badExtensions = {".js", ".css", ".jpg", ".gif", ".png", ".ico", ".ics", ".doc", ".docx", ".pdf", ".xml", ".zip", ".txt"};
 
@@ -85,7 +90,10 @@ void StatLog::makeMapLine(bool extFilter, int startHeure)
     return;
 }
 
-void StatLog::MakeMap(bool extFilter, int startHeure){
+void StatLog::MakeMap(bool extFilter, int startHeure)
+// Algorithme :
+//
+{
 
     while (file.getNextLogLine()){
 
@@ -96,12 +104,41 @@ void StatLog::MakeMap(bool extFilter, int startHeure){
     return;
 }
 
+void StatLog::makeDotFile()
+// Algorithme :
+//
+{
+    ofstream fout("test.dot");
 
+    if( fout )    
+    {
+        fout << "digraph {" << endl;
+        int i = 0;
+        for( list< string >::iterator it = listeNode.begin(); it != listeNode.end(); it++)
+        {
+            fout << *it << " [label=\"" << *it << "\"];" << endl;
+        }
+
+        for ( map < string, map < string, int > >::iterator it = graph.begin ( ) ; it != graph.end ( ) ; ++it  )
+        {
+            for ( map < string, int >::iterator it2 = it -> second.begin ( ) ; it2 != it -> second.end ( ) ; ++it2  )
+            {
+                fout << it -> first << " -> " << it2 -> first << " [label=\"" << it2 -> second << "\"];" << endl;
+            }
+        }
+        fout << "}" << endl;
+    }
+    else
+    {
+        cout << "ERREUR: Impossible d'ouvrir le fichier." << endl;
+    }
+}
 //------------------------------------------------- Surcharge d'opérateurs
 StatLog & StatLog::operator = ( const StatLog & unStatLog )
 // Algorithme :
 //
 {
+
 } //----- Fin de operator =
 
 
