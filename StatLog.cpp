@@ -46,22 +46,22 @@ void StatLog::makeMapLine(bool extFilter, int startHeure)
     vector <string> badExtensions = {".js", ".css", ".jpg", ".gif", ".png", ".ico", ".ics", ".doc", ".docx", ".pdf", ".xml", ".zip", ".txt"};
 
     if (startHeure != -1){
-        int intHeure = int(getHeure)*10000 + int(getMinute)*100 + int(getSeconde);
+        int intHeure = int(getHeure())*10000 + int(getMinute())*100 + int(getSeconde());
         if (intHeure > startHeure || (startHeure > 230000 && startHeure + 10000 - 240000 > intHeure)){
             return;
         }   
     }
 
-    else if (extFilter && find(badExtensions.begin(), badExtensions.end(), getExtension) != badExtensions.end()){
+    else if (extFilter && find(badExtensions.begin(), badExtensions.end(), getExtension()) != badExtensions.end()){
         return; 
     }
 
-    else if (getCode == 400 || getCode == 500){
+    else if (getCode() == 400 || getCode == 500){
         return;
     }
 
-    string source = getSource;
-    string destination = getDestination;
+    string source = getSource();
+    string destination = getDestination();
 
     if (graph.find(source) == graph.end()){
         map <string, int> newMap;
@@ -85,6 +85,13 @@ void StatLog::makeMapLine(bool extFilter, int startHeure)
     return;
 
     
+}
+
+void StatLog::makeMap(bool extFilter, int startHeure){
+    while (getNextLogLine()){
+        makeMapLine(extFilter, startHeure);
+    }
+    return;
 }
 
 
