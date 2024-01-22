@@ -1,2 +1,3 @@
 # TP-Cpp4-Log
-C le tp de la mort
+C un tp qui vient au mauvais moment
+juste oui
