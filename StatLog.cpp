@@ -26,17 +26,24 @@ void StatLog::makeTop10 ( void )
 // Algorithme :
 //
 {
-    map < string, int > hitsByCible;
-    
+    vector < pair < string, int > > hitsByCible;
+
     for ( map < string, map < string, int > >::iterator it = graph.begin ( ) ; it != graph.end ( ) ; ++it  )
     {
-        cout << it -> first << endl;
-
         for ( map < string, int >::iterator it2 = it -> second.begin ( ) ; it2 != it -> second.end ( ) ; ++it2  )
         {
-            cout << ">>>" << it2 -> first << endl;
-            cout << ">>>" << it2 -> second << endl;
+            hitsByCible.push_back( make_pair ( it2 -> first, it2 -> second ) );
         }
+    }
+
+    sort ( hitsByCible.begin(), hitsByCible.end(), compare );
+
+    int i = 1;
+
+    while (i < hitsByCible.size() + 1 && i <= 10)
+    {
+        cout << hitsByCible[hitsByCible.size() - i].first << " (" << hitsByCible[hitsByCible.size() - i].second << " hits)" << endl;
+        i++;
     }
 } //----- makeTop10
 
@@ -84,3 +91,6 @@ StatLog::~StatLog ( )
 
 //----------------------------------------------------- Méthodes protégées
 
+StatLog::bool compare ( pair < string, int > & a, pair < string, int > & b ) {
+    return a.second < b.second;
+}
