@@ -39,12 +39,31 @@ public:
     //
 
     void makeMapLine(bool extFilter, int startHeure = -1);
+    // Mode d'emploi : On appelle la fonction pour ajouter une ligne au graph à partir des infos de
+    // l'objet ReadFile avec les différents méthodes get de l'objet ReadFile file. On peut filtrer 
+    // les extensions et les heures à partir des paramètres.
+    //
+    // Contrat : La méthode ne va pas récupérer les infos de la ligne suivante pour la suite
+    // La méthode vérifie si la requête est valide (code 400 ou 500) et les filtres avant d'inserer
 
     void makeMap(bool extFilter, int startHeure = -1);
+    // Mode d'emploi : On appelle la fonction pour créer le graphe complet à partir des infos du fichier log.
+    // On peut filtrer les extensions et les heures à partir des paramètres.
+    //
+    // Contrat : la méthoder récupère la ligne suivante
+    // Il faut que l'objet ReadFile file soit initialisé et passer dans le constructeur de StatLog
 
     void makeTop10();
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
     void makeDotFile();
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
 
 
