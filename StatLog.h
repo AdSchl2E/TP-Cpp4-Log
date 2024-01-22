@@ -14,6 +14,7 @@
 #include <map>
 #include <list>
 #include <string>
+#include ReadFile.h
 using namespace std;
 //------------------------------------------------------------- Constantes
 
@@ -62,7 +63,7 @@ public:
     // Contrat :
     //
 
-    StatLog ( );
+    StatLog (ReadFile file);
     // Mode d'emploi :
     //
     // Contrat :

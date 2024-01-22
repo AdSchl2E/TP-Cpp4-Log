@@ -88,7 +88,7 @@ void StatLog::makeMapLine(bool extFilter, int startHeure)
 }
 
 void StatLog::makeMap(bool extFilter, int startHeure){
-    while (getNextLogLine()){
+    while (file.getNextLogLine()){
         makeMapLine(extFilter, startHeure);
     }
     return;
