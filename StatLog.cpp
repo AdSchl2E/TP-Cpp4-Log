@@ -41,7 +41,7 @@ void StatLog::makeTop10 ( void )
 
     int i = 1;
 
-    while (i < hitsByCible.size() + 1 && i <= 10)
+    while ( i < hitsByCible.size() + 1 && i <= 10 )
     {
         cout << hitsByCible[hitsByCible.size() - i].first << " (" << hitsByCible[hitsByCible.size() - i].second << " hits)" << endl;
         i++;
@@ -82,22 +82,17 @@ void StatLog::makeMapLine(bool extFilter, int startHeure)
         graph[source][destination]++;
     }
     
-
-
-
-
-
-
-
     return;
-
-    
 }
 
-void StatLog::makeMap(bool extFilter, int startHeure){
+void StatLog::MakeMap(bool extFilter, int startHeure){
+
     while (file.getNextLogLine()){
+
         makeMapLine(extFilter, startHeure);
+
     }
+
     return;
 }
 
@@ -145,6 +140,6 @@ StatLog::~StatLog ( )
 
 //----------------------------------------------------- Méthodes protégées
 
-StatLog::bool compare ( pair < string, int > & a, pair < string, int > & b ) {
+bool StatLog::compare ( pair < string, int > & a, pair < string, int > & b ) {
     return a.second < b.second;
 }
