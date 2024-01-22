@@ -13,6 +13,7 @@
 //-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
+#include <vector>
 
 //------------------------------------------------------ Include personnel
 #include "StatLog.h"
@@ -42,15 +43,45 @@ void StatLog::makeTop10 ( void )
 
 void StatLog::makeMapLine(bool extFilter, int startHeure)
 {
-    if (startHeure != -1){
-        int intHeure = int(getHeure) + int(getMinute) + int(getSeconde);
-        if (intHeure > startHeure || (startHeure > 230000 && startHeure + 10000 - 240000 > intHeure)){
-            if (extFilter){
+    vector <string> badExtensions = {".js", ".css", ".jpg", ".gif", ".png", ".ico", ".ics", ".doc", ".docx", ".pdf", ".xml", ".zip", ".txt"};
 
-            }
-        }
-        
+    if (startHeure != -1){
+        int intHeure = int(getHeure)*10000 + int(getMinute)*100 + int(getSeconde);
+        if (intHeure > startHeure || (startHeure > 230000 && startHeure + 10000 - 240000 > intHeure)){
+            return;
+        }   
     }
+
+    else if (extFilter && find(badExtensions.begin(), badExtensions.end(), getExtension) != badExtensions.end()){
+        return; 
+    }
+
+    else if (getCode == 400 || getCode == 500){
+        return;
+    }
+
+    string source = getSource;
+    string destination = getDestination;
+
+    if (graph.find(source) == graph.end()){
+        map <string, int> newMap;
+        graph.insert(pair<string, map<string, int>>(source, newMap));
+    }
+    
+    if (graph[source].find(destination) == graph[source].end()){
+        graph[source].insert(pair<string, int>(destination, 1));
+    }
+    else{
+        graph[source][destination]++;
+    }
+    
+
+
+
+
+
+
+
     return;
 
     
