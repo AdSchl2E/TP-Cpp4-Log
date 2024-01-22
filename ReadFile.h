@@ -1,5 +1,5 @@
 /*************************************************************************
-                           ReadFile  -  description
+                           ReadFile  -  classe de lecture fichier log
                              -------------------
     début                : $DATE$
     copyright            : (C) $YEAR$ par $AUTHOR$
@@ -12,31 +12,49 @@
 
 //--------------------------------------------------- Interfaces utilisées
 #include <iostream>
-using namespace std;
+#include <fstream>
 #include <string>
+using namespace std;
 
 
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-
+typedef struct
+{
+    string ip = "0.0.0.0";
+    string userNameLog;
+    string nameUser;
+    string date;
+    string hour;
+    string gmtModif;
+    string request;
+    string urlTarget;
+    string extension = "";
+    string protocolV;
+    string status;
+    string dataSize;
+    string domain = "";
+    string urlReferer;
+    string idCli;
+} LogData;
 //------------------------------------------------------------------------
 // Rôle de la classe <ReadFile>
 //
 //
 //------------------------------------------------------------------------
 
-class ReadFile : public Ancetre
+class ReadFile
 {
 //----------------------------------------------------------------- PUBLIC
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+// type Méthode ( liste des paramètres );
+// Mode d'emploi :
+//
+// Contrat :
+//
     string getIp () const;
     // Mode d'emploi :
     // renvoie la donnée concernée de la ligne de log actuelle
@@ -69,6 +87,10 @@ public:
     // Mode d'emploi :
     // renvoie la donnée concernée de la ligne de log actuelle
 
+    string getExtension () const;
+    // Mode d'emploi :
+    // renvoie la donnée concernée de la ligne de log actuelle
+
     string getProtocolV () const;
     // Mode d'emploi :
     // renvoie la donnée concernée de la ligne de log actuelle
@@ -93,17 +115,11 @@ public:
     // Mode d'emploi :
     // renvoie la donnée concernée de la ligne de log actuelle
 
-    string getNextLogLine ();
+    bool getNextLogLine ();
     // Mode d'emploi :
     // Lis la prochaine ligne d'un fichier de log apache et met à jour la struct data
 
-
 //------------------------------------------------- Surcharge d'opérateurs
-    ReadFile & operator = ( const ReadFile & unReadFile );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
 
 
 //-------------------------------------------- Constructeurs - destructeur
@@ -113,13 +129,11 @@ public:
     // Contrat :
     //
 
-    ReadFile (string nomFic);
+    ReadFile (string nomFic, string url = "intranet-if.insa-lyon.fr");
     // Mode d'emploi :
     //
     // Contrat :
     //
-    
-    
 
     virtual ~ReadFile ( );
     // Mode d'emploi :
@@ -133,28 +147,10 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-    typedef struct
-    {
-        string ip = "0.0.0.0";
-        string userNameLog;
-        string nameUser;
-        string date;
-        string hour;
-        string gmtModif;
-        string request;
-        string urlTarget;
-        string protocolV;
-        string status;
-        string dataSize;
-        string domain;
-        string urlReferer;
-        string idCli;
-    }data;
-
+    LogData data;
     string nomFic;
+    string urlLocale;
     ifstream rFlux;
-
-
 };
 
 //-------------------------------- Autres définitions dépendantes de <ReadFile>
