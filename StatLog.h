@@ -14,6 +14,7 @@
 #include <map>
 #include <list>
 #include <string>
+#include ReadFile.h
 using namespace std;
 //------------------------------------------------------------- Constantes
 
@@ -37,9 +38,9 @@ public:
     // Contrat :
     //
 
-    void makeMapLine();
+    void makeMapLine(bool extFilter, int startHeure = -1);
 
-    void makeMap();
+    void makeMap(bool extFilter, int startHeure = -1);
 
     void makeTop10();
 
@@ -62,7 +63,7 @@ public:
     // Contrat :
     //
 
-    StatLog ( );
+    StatLog (ReadFile file);
     // Mode d'emploi :
     //
     // Contrat :
