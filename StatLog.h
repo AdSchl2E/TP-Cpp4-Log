@@ -100,7 +100,7 @@ protected:
 //----------------------------------------------------- Méthodes protégées
     bool compare ( pair < string, int > & a, pair < string, int > & b );
 //----------------------------------------------------- Attributs protégés
-    list < string > listeNode;
+    vector < string > listeNode;
     map < string *, map < string *, int > > graph;
 };
 

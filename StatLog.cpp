@@ -114,7 +114,7 @@ void StatLog::makeDotFile()
     {
         fout << "digraph {" << endl;
         int i = 0;
-        for( list< string >::iterator it = listeNode.begin(); it != listeNode.end(); it++)
+        for( vector < string >::iterator it = listeNode.begin(); it != listeNode.end(); it++)
         {
             fout << *it << " [label=\"" << *it << "\"];" << endl;
         }
