@@ -78,7 +78,7 @@ int main(int argc, char* argv[]) {
 
         }else{
 
-            cout << "Erreur : pas de fichier log" << endl;
+            cerr << "Erreur : pas de fichier log" << endl;
         }
 
         // On affiche les paramètres
@@ -100,7 +100,7 @@ int main(int argc, char* argv[]) {
 
             if (dotFile == "") {                    // A voir si c utile de faire ça
 
-                cout << "Erreur : pas de nom de fichier dot" << endl;
+                cerr << "Erreur : pas de nom de fichier dot" << endl;
 
             } else {
 
