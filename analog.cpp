@@ -78,7 +78,7 @@ int main(int argc, char* argv[]) {
 
         }else{
 
-            cout << "Erreur : pas de fichier log" << endl;
+            cerr << "Erreur : pas de fichier log" << endl;
         }
 
         // On affiche les paramètres
@@ -90,15 +90,22 @@ int main(int argc, char* argv[]) {
         cout << "aled : " << aled << endl;
         cout << "redirect : " << redirect << endl;
 
-        ReadFile File("court.log", baseURL); // Pareil il faut une val par defaut pour baseURL qui soit compréhensible par le constructeur de ReadFile pour ne pas le prendre en compte quand il n'est pas activé
+        ReadFile File("court.log", baseURL);        // Pareil il faut une val par defaut pour baseURL qui soit compréhensible par le constructeur de ReadFile pour ne pas le prendre en compte quand il n'est pas activé
 
-        StatLog Stat(File, startHeure, extFilter); // Faudrait des valeurs par defaut pour startHeure et extFilter qui soit compréhensible par le constructeur de StatLog pour ne pas les prendre en compte quand ils ne sont pas activé
+        StatLog Stat(File, startHeure, extFilter);  // Faudrait des valeurs par defaut pour startHeure et extFilter qui soit compréhensible par le constructeur de StatLog pour ne pas les prendre en compte quand ils ne sont pas activé
 
-        Stat.makeTop10();
+        Stat.makeTop10();                           // Apparement on l'affiche dans tout les cas
 
         if (parametreDotFile) {
 
-            Stat.makeDotFile(dotFile);
+            if (dotFile == "") {                    // A voir si c utile de faire ça
+
+                cerr << "Erreur : pas de nom de fichier dot" << endl;
+
+            } else {
+
+                Stat.makeDotFile(dotFile);
+            }
         }
 
     } else { // If aled

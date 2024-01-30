@@ -250,3 +250,47 @@ ReadFile::~ReadFile ( )
 
 //----------------------------------------------------- Méthodes protégées
 
+//------------------------------------------------------------------ A ENLEVER
+int main()
+{
+    ReadFile testfile("exemple-mini-non-exhaustif.txt");
+    cout << testfile.getNextLogLine() << endl;
+    cout << testfile.getIp() << endl;
+    cout << testfile.getUserNameLog() << endl;
+    cout << testfile.getNameUser() << endl;
+    cout << testfile.getDate() << endl;
+    cout << testfile.getHour() << endl;
+    cout << testfile.getGmtModif() << endl;
+    cout << testfile.getRequest() << endl;
+    cout << testfile.getUrlTarget() << endl;
+    cout << testfile.getExtension() << endl;
+    cout << testfile.getProtocolV() << endl;
+    cout << testfile.getStatus() << endl;
+    cout << testfile.getDataSize() << endl;
+    cout << testfile.getDomain() << endl;
+    cout << testfile.getUrlReferer() << endl;
+    cout << testfile.getIdCli() << endl;
+
+    cout << testfile.getNextLogLine() << endl;
+    cout << testfile.getIp() << endl;
+    cout << testfile.getUserNameLog() << endl;
+    cout << testfile.getNameUser() << endl;
+    cout << testfile.getDate() << endl;
+    cout << testfile.getHour() << endl;
+    cout << testfile.getGmtModif() << endl;
+    cout << testfile.getRequest() << endl;
+    cout << testfile.getUrlTarget() << endl;
+    cout << testfile.getExtension() << endl;
+    cout << testfile.getProtocolV() << endl;
+    cout << testfile.getStatus() << endl;
+    cout << testfile.getDataSize() << endl;
+    cout << testfile.getDomain() << endl;
+    cout << testfile.getUrlReferer() << endl;
+    cout << testfile.getIdCli() << endl;
+
+    cout << testfile.getNextLogLine() << endl;
+    cout << testfile.getNextLogLine() << endl;
+    cout << testfile.getNextLogLine() << endl;
+    cout << testfile.getNextLogLine() << endl;
+    cout << testfile.getNextLogLine() << endl;
+}

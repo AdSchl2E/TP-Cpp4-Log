@@ -13,6 +13,7 @@
 //--------------------------------------------------- Interfaces utilisées
 #include <map>
 #include <vector>
+#include <algorithm>
 #include <string>
 #include "ReadFile.h"
 using namespace std;
@@ -38,7 +39,7 @@ public:
     // Contrat :
     //
 
-    void makeMapLine(bool extFilter, int startHeure = -1);
+        void makeMapLine(ReadFile file, bool extFilter, int startHeure);
     // Mode d'emploi : On appelle la fonction pour ajouter une ligne au graph à partir des infos de
     // l'objet ReadFile avec les différents méthodes get de l'objet ReadFile file. On peut filtrer 
     // les extensions et les heures à partir des paramètres.
@@ -46,7 +47,7 @@ public:
     // Contrat : La méthode ne va pas récupérer les infos de la ligne suivante pour la suite
     // La méthode vérifie si la requête est valide (code 400 ou 500) et les filtres avant d'inserer
 
-    void makeMap(bool extFilter, int startHeure = -1);
+    void makeMap(ReadFile file, bool extFilter, int startHeure);
     // Mode d'emploi : On appelle la fonction pour créer le graphe complet à partir des infos du fichier log.
     // On peut filtrer les extensions et les heures à partir des paramètres.
     //
@@ -64,8 +65,6 @@ public:
     // On appelle la fonction pour créer le fichier dot
     // Contrat :
     // Il faut que l'objet ReadFile file soit initialisé et passer dans le constructeur de StatLog
-
-
 
 //------------------------------------------------- Surcharge d'opérateurs
     StatLog & operator = ( const StatLog & unStatLog );
@@ -99,6 +98,9 @@ public:
 protected:
 //----------------------------------------------------- Méthodes protégées
     bool compare ( pair < string, int > & a, pair < string, int > & b );
+        
+    int convertHourInt(const std::string& heureString);
+
 //----------------------------------------------------- Attributs protégés
     vector < string > listeNode;
     map < string *, map < string *, int > > graph;
