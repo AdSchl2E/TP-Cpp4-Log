@@ -60,7 +60,7 @@ public:
     // Contrat :
     // Il faut que l'objet ReadFile file soit initialisé et passer dans le constructeur de StatLog
 
-    void makeDotFile();
+    void makeDotFile( string dotFile );
     // Mode d'emploi :
     // On appelle la fonction pour créer le fichier dot
     // Contrat :

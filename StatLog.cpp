@@ -126,11 +126,11 @@ void StatLog::MakeMap(bool extFilter, int startHeure)
     return;
 }
 
-void StatLog::makeDotFile()
+void StatLog::makeDotFile( string dotFile )
 // Algorithme :
 //
 {
-    ofstream fout("test.dot");
+    ofstream fout(dotFile.c_str());
 
     if( fout )    
     {
