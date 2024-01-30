@@ -35,7 +35,7 @@ void StatLog::makeTop10 ( void )
     {
         for ( map < string *, int >::iterator it2 = it -> second.begin ( ) ; it2 != it -> second.end ( ) ; ++it2  )
         {
-            hitsByCible.push_back( make_pair ( it2 -> first, it2 -> second ) );
+            hitsByCible.push_back ( pair < string, int > ( *it2 -> first, it2 -> second ) );
         }
     }
 
