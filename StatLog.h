@@ -39,7 +39,7 @@ public:
     // Contrat :
     //
 
-        void makeMapLine(ReadFile file, bool extFilter, int startHeure);
+    void makeMapLine(ReadFile file, bool extFilter, int startHeure);
     // Mode d'emploi : On appelle la fonction pour ajouter une ligne au graph à partir des infos de
     // l'objet ReadFile avec les différents méthodes get de l'objet ReadFile file. On peut filtrer 
     // les extensions et les heures à partir des paramètres.
@@ -81,7 +81,7 @@ public:
     // Contrat :
     //
 
-    StatLog (ReadFile file);
+    StatLog (ReadFile file, int startHeure, bool extFilter);
     // Mode d'emploi :
     //
     // Contrat :

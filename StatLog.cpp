@@ -175,7 +175,7 @@ StatLog::StatLog ( const StatLog & unStatLog )
 } //----- Fin de StatLog (constructeur de copie)
 
 
-StatLog::StatLog (ReadFile file, bool extFilter, int startHeure)
+StatLog::StatLog (ReadFile file, int startHeure, bool extFilter)
 // Algorithme :
 //
 {
