@@ -31,9 +31,9 @@ void StatLog::makeTop10 ( void )
 {
     vector < pair < string, int > > hitsByCible;
 
-    for ( map < string, map < string, int > >::iterator it = graph.begin ( ) ; it != graph.end ( ) ; ++it  )
+    for ( map < string *, map < string *, int > >::iterator it = graph.begin ( ) ; it != graph.end ( ) ; ++it  )
     {
-        for ( map < string, int >::iterator it2 = it -> second.begin ( ) ; it2 != it -> second.end ( ) ; ++it2  )
+        for ( map < string *, int >::iterator it2 = it -> second.begin ( ) ; it2 != it -> second.end ( ) ; ++it2  )
         {
             hitsByCible.push_back( make_pair ( it2 -> first, it2 -> second ) );
         }
