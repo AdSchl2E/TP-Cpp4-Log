@@ -66,8 +66,8 @@ int main(int argc, char* argv[]) {
                 default:
 
                     cerr << "L'option " << argv[i] << " n'existe pas" << endl;
-                    
-                    break;
+
+                    return 1;
             }
         }
     }
