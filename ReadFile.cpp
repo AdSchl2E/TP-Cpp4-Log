@@ -101,7 +101,7 @@ bool ReadFile::getNextLogLine ()
 {
     string ligne;
     getline(rFlux, ligne);
-    if (rFlux)
+    if (! rFlux.rdstate())
     {
         int start;
         int end;
@@ -159,6 +159,7 @@ bool ReadFile::getNextLogLine ()
         data.dataSize = ligne.substr(start, end-start);
 
         start = end+2;
+
         if (ligne.substr(start, 1) == "-")
         {
             data.urlReferer = "-";
@@ -195,6 +196,7 @@ bool ReadFile::getNextLogLine ()
             end = ligne.find('"', start);
             data.idCli= ligne.substr(start, end-start);
         }
+
         return true;
     }
     else
@@ -233,6 +235,7 @@ ReadFile::ReadFile (string fichier, string url)
         cerr << "Erreur : le fichier ne peut être ouvert, vérifiez sa validité" << endl;
         fileError = 1;
     }
+    cout << "ReadFile.cpp - 237 " << rFlux.rdstate() << endl;
 } //----- Fin de ReadFile
 
 
@@ -249,48 +252,3 @@ ReadFile::~ReadFile ( )
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
-
-//------------------------------------------------------------------ A ENLEVER
-int main()
-{
-    ReadFile testfile("exemple-mini-non-exhaustif.txt");
-    cout << testfile.getNextLogLine() << endl;
-    cout << testfile.getIp() << endl;
-    cout << testfile.getUserNameLog() << endl;
-    cout << testfile.getNameUser() << endl;
-    cout << testfile.getDate() << endl;
-    cout << testfile.getHour() << endl;
-    cout << testfile.getGmtModif() << endl;
-    cout << testfile.getRequest() << endl;
-    cout << testfile.getUrlTarget() << endl;
-    cout << testfile.getExtension() << endl;
-    cout << testfile.getProtocolV() << endl;
-    cout << testfile.getStatus() << endl;
-    cout << testfile.getDataSize() << endl;
-    cout << testfile.getDomain() << endl;
-    cout << testfile.getUrlReferer() << endl;
-    cout << testfile.getIdCli() << endl;
-
-    cout << testfile.getNextLogLine() << endl;
-    cout << testfile.getIp() << endl;
-    cout << testfile.getUserNameLog() << endl;
-    cout << testfile.getNameUser() << endl;
-    cout << testfile.getDate() << endl;
-    cout << testfile.getHour() << endl;
-    cout << testfile.getGmtModif() << endl;
-    cout << testfile.getRequest() << endl;
-    cout << testfile.getUrlTarget() << endl;
-    cout << testfile.getExtension() << endl;
-    cout << testfile.getProtocolV() << endl;
-    cout << testfile.getStatus() << endl;
-    cout << testfile.getDataSize() << endl;
-    cout << testfile.getDomain() << endl;
-    cout << testfile.getUrlReferer() << endl;
-    cout << testfile.getIdCli() << endl;
-
-    cout << testfile.getNextLogLine() << endl;
-    cout << testfile.getNextLogLine() << endl;
-    cout << testfile.getNextLogLine() << endl;
-    cout << testfile.getNextLogLine() << endl;
-    cout << testfile.getNextLogLine() << endl;
-}

@@ -39,7 +39,7 @@ public:
     // Contrat :
     //
 
-    void makeMapLine(ReadFile file, bool extFilter, int startHeure);
+    void makeMapLine(ReadFile & file, bool extFilter, int startHeure);
     // Mode d'emploi : On appelle la fonction pour ajouter une ligne au graph à partir des infos de
     // l'objet ReadFile avec les différents méthodes get de l'objet ReadFile file. On peut filtrer 
     // les extensions et les heures à partir des paramètres.
@@ -47,7 +47,7 @@ public:
     // Contrat : La méthode ne va pas récupérer les infos de la ligne suivante pour la suite
     // La méthode vérifie si la requête est valide (code 400 ou 500) et les filtres avant d'inserer
 
-    void makeMap(ReadFile file, bool extFilter, int startHeure);
+    void makeMap(ReadFile & file, bool extFilter, int startHeure);
     // Mode d'emploi : On appelle la fonction pour créer le graphe complet à partir des infos du fichier log.
     // On peut filtrer les extensions et les heures à partir des paramètres.
     //
@@ -81,7 +81,7 @@ public:
     // Contrat :
     //
 
-    StatLog (ReadFile file, int startHeure, bool extFilter);
+    StatLog (ReadFile & file, int startHeure, bool extFilter);
     // Mode d'emploi :
     //
     // Contrat :
@@ -97,9 +97,17 @@ public:
 
 protected:
 //----------------------------------------------------- Méthodes protégées
-    bool compare ( pair < string, int > & a, pair < string, int > & b );
-        
-    int convertHourInt(const std::string& heureString);
+    static bool compare ( pair < string, int > & a, pair < string, int > & b );
+    // Mode d'emploi :
+    // Compare deux pairs de string et int
+    // Contrat :
+    //
+
+    int convertHourInt(const string & heureString);
+    // Mode d'emploi :
+    // Convertit une heure au format hh:mm:ss en un entier au format hhmmss
+    // Contrat :
+    //
 
 //----------------------------------------------------- Attributs protégés
     vector < string > listeNode;

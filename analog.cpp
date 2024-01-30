@@ -77,6 +77,7 @@ int main(int argc, char* argv[]) {
         if (argc > 1){
 
             logFile = argv[argc - 1];
+            cout << "logFile : " << logFile << endl;
 
         }else{
 
@@ -94,10 +95,12 @@ int main(int argc, char* argv[]) {
 
         ReadFile File("court.log", baseURL);        // Pareil il faut une val par defaut pour baseURL qui soit compréhensible par le constructeur de ReadFile pour ne pas le prendre en compte quand il n'est pas activé
 
+
+        //aled
         StatLog Stat(File, startHeure, extFilter);  // Faudrait des valeurs par defaut pour startHeure et extFilter qui soit compréhensible par le constructeur de StatLog pour ne pas les prendre en compte quand ils ne sont pas activé
-
+        cout << "pas aled" << endl;
         Stat.makeTop10();                           // Apparement on l'affiche dans tout les cas
-
+        cout << "pas aled2" << endl;
         if (parametreDotFile) {
 
             if (dotFile == "") {                    // A voir si c utile de faire ça
