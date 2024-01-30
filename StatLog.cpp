@@ -50,14 +50,34 @@ void StatLog::makeTop10 ( void )
     }
 } //----- makeTop10
 
-void StatLog::makeMapLine(bool extFilter, int startHeure)
+int convertHourInt(const string& heureString) {
+    // Utilisation d'un flux de chaînes pour extraire les parties de l'heure
+    istringstream ss(heureString);
+
+    int heures, minutes, secondes;
+    char delimiter;
+
+    // Extraction des parties de l'heure
+    if (ss >> heures >> delimiter >> minutes >> delimiter >> secondes) {
+        // Calcul de l'entier HHMMSS
+        int heureInt = heures * 10000 + minutes * 100 + secondes;
+
+        return heureInt;
+    } else {
+        // Gestion d'une entrée invalide
+        cerr << "Format d'heure invalide : " << heureString << endl;
+        return -1; // Vous pouvez choisir une valeur de retour appropriée
+    }
+} //----- convertHourInt
+
+void StatLog::makeMapLine(ReadFile file, bool extFilter, int startHeure)
 // Algorithme :
 //
 {
     vector <string> badExtensions = {".js", ".css", ".jpg", ".gif", ".png", ".ico", ".ics", ".doc", ".docx", ".pdf", ".xml", ".zip", ".txt"};
 
     if (startHeure != -1){
-        int intHeure = int(getHeure())*10000 + int(getMinute())*100 + int(getSeconde());
+        int intHeure = convertHourInt(file.getHour());
         if (intHeure > startHeure || (startHeure > 230000 && startHeure + 10000 - 240000 > intHeure)){
             return;
         }   
@@ -67,12 +87,15 @@ void StatLog::makeMapLine(bool extFilter, int startHeure)
         return; 
     }
 
-    else if (getCode() == 400 || getCode == 500){
+    else if (getStatus() == 400 || getStatus() == 500){
         return;
     }
 
-    string source = getSource();
-    string destination = getDestination();
+    string source = getUrlReferer();
+    string destination = getUrlTarget();
+    listeNode.pop_back(source);
+    listeNode.pop_back(destination);
+
 
     if (graph.find(source) == graph.end()){
         map <string, int> newMap;
@@ -152,10 +175,14 @@ StatLog::StatLog ( const StatLog & unStatLog )
 } //----- Fin de StatLog (constructeur de copie)
 
 
-StatLog::StatLog ( )
+StatLog::StatLog (ReadFile file, bool extFilter, int startHeure)
 // Algorithme :
 //
 {
+makeMap(file, extFilter, startHeure);
+listeNode.sort();
+listeNode.unique();
+
 #ifdef MAP
     cout << "Appel au constructeur de <StatLog>" << endl;
 #endif
@@ -170,6 +197,7 @@ StatLog::~StatLog ( )
     cout << "Appel au destructeur de <StatLog>" << endl;
 #endif
 } //----- Fin de ~StatLog
+
 
 
 //------------------------------------------------------------------ PRIVE

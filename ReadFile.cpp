@@ -245,6 +245,7 @@ ReadFile::~ReadFile ( )
 
 //----------------------------------------------------- Méthodes protégées
 
+//------------------------------------------------------------------ A ENLEVER
 int main()
 {
     ReadFile testfile("exemple-mini-non-exhaustif.txt");
