@@ -12,9 +12,9 @@
 
 //--------------------------------------------------- Interfaces utilisées
 #include <map>
-#include <list>
+#include <vector>
 #include <string>
-#include ReadFile.h
+#include "ReadFile.h"
 using namespace std;
 //------------------------------------------------------------- Constantes
 
@@ -55,15 +55,15 @@ public:
 
     void makeTop10();
     // Mode d'emploi :
-    //
+    // On appelle la fonction pour créer le top 10 des pages les plus visitées
     // Contrat :
-    //
+    // Il faut que l'objet ReadFile file soit initialisé et passer dans le constructeur de StatLog
 
     void makeDotFile();
     // Mode d'emploi :
-    //
+    // On appelle la fonction pour créer le fichier dot
     // Contrat :
-    //
+    // Il faut que l'objet ReadFile file soit initialisé et passer dans le constructeur de StatLog
 
 
 
