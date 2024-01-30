@@ -151,6 +151,7 @@ protected:
     string nomFic;
     string urlLocale;
     ifstream rFlux;
+    int fileError = 0;
 };
 
 //-------------------------------- Autres définitions dépendantes de <ReadFile>

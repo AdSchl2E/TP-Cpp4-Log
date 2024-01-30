@@ -228,6 +228,11 @@ ReadFile::ReadFile (string fichier, string url)
     nomFic = fichier;
     urlLocale = url;
     rFlux.open(fichier);
+    if ((rFlux.rdstate() & ifstream::failbit) != 0)
+    {
+        cerr << "Erreur : le fichier ne peut être ouvert, vérifiez sa validité" << endl;
+        fileError = 1;
+    }
 } //----- Fin de ReadFile
 
 
