@@ -9,13 +9,14 @@ using namespace std;
 int main(int argc, char* argv[]) {
     // On récupère les paramètres
     bool extFilter = false;
-    int startHeure = -1;
+    string startHeure = "-1";
     string logFile;
     string dotFile = "";
     string baseURL = "";
     bool aled = false;
     bool redirect = false;
-
+    bool extWarning = false;
+    bool parametreHour = false;
     bool parametreDotFile;
 
     // Le logfile est le dernier paramètre
@@ -30,11 +31,18 @@ int main(int argc, char* argv[]) {
 
                     extFilter = true;
 
+                    if (argv[i+1][0] == '-') {
+
+                        extWarning = true;
+                    }
+
                     break;
 
                 case 't':
 
                     startHeure = atoi(argv[i + 1]);
+
+                    parametreHour = true;
 
                     break;
 
@@ -73,15 +81,16 @@ int main(int argc, char* argv[]) {
     }
 
     if (!aled){
+    vector <string> flagsWithParameters = {"-t", "-g", "-u"};
 
-        if (argc > 1){
+    if (argc = 2 || (argc > 2 && find(flagsWithParameters.begin(), flagsWithParameters.end(), argv[argc - 2]) != flagsWithParameters.end())) {
+        logFile = argv[argc - 1];
+    }
+    
+    else{
 
-            logFile = argv[argc - 1];
-
-        }else{
-
-            cerr << "Erreur : pas de fichier log" << endl;
-        }
+        cerr << "Erreur : pas de fichier log" << endl;
+    }
 
         // On affiche les paramètres
         cout << "extFilter : " << extFilter << endl;
@@ -98,17 +107,41 @@ int main(int argc, char* argv[]) {
 
         Stat.makeTop10();                           // Apparement on l'affiche dans tout les cas
 
+        
+        
+        if (extWarning) {
+
+            cerr << "Attention : pas de parmètre après -e" << endl;
+        }
+        
         if (parametreDotFile) {
 
-            if (dotFile == "") {                    // A voir si c utile de faire ça
+            if (dotFile == "" || dotFile[0] == '-') {
 
                 cerr << "Erreur : pas de nom de fichier dot" << endl;
+                return 1;
 
             } else {
 
                 Stat.makeDotFile(dotFile);
             }
         }
+        else if (parametreHour) {
+            if (size(startHeure) != 8) {
+                cerr << "Erreur : format d'heure invalide (valeur attendu : HH:MM:SS)" << endl;
+                return 1;
+
+            } else if (atoi(startHeure[0] + startHeure[1]) > 24 || atoi(startHeure[3] + startHeure[4]) > 60 || atoi(startHeure[6] + startHeure[7]) > 60){
+                cerr << "Erreur : format d'heure invalide - il faut HH < 24, MM < 60 et SS < 60" << endl;
+                return 1;  
+            }
+
+        }
+
+
+
+
+        
 
     } else { // If aled
 
