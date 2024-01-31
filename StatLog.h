@@ -109,12 +109,7 @@ protected:
     // Convertit une heure au format hh:mm:ss en un entier au format hhmmss
     // Contrat :
     //
-
-    string adresseSansPrefixe(const string* adresse);
-    // Mode d'emploi :
-    // Enlève le préfixe 0x de l'adresse
-    // Contrat :
-    //
+    
 //----------------------------------------------------- Attributs protégés
     list < string > listeNode;
     map < string *, map < string *, int > > graph;
