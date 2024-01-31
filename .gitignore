@@ -1,2 +1,9 @@
 #fichiers que l'on ne commit pas
 analog
+analog.o
+ReadFile.o
+StatLog.o 
+machin.dot
+test
+.vscode
+lol.dot

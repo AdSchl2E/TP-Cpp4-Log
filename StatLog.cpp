@@ -15,6 +15,7 @@ using namespace std;
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+#include <iomanip>
 
 
 //------------------------------------------------------ Include personnel
@@ -30,100 +31,121 @@ void StatLog::makeTop10 ( void )
 //
 {
     vector < pair < string, int > > hitsByCible;
+    int sumHits = 0;
 
-    for ( map < string *, map < string *, int > >::iterator it = graph.begin ( ) ; it != graph.end ( ) ; ++it  )
-    {
-        for ( map < string *, int >::iterator it2 = it -> second.begin ( ) ; it2 != it -> second.end ( ) ; ++it2  )
-        {
-            hitsByCible.push_back ( pair < string, int > ( *it2 -> first, it2 -> second ) );
+    for ( map < string *, map < string *, int > >::iterator it = graph.begin ( ) ; it != graph.end ( ) ; ++it  ){
+
+        sumHits = 0;
+
+        for ( map < string *, int >::iterator it2 = it -> second.begin ( ) ; it2 != it -> second.end ( ) ; ++it2  ){
+
+            sumHits += it2 -> second;
         }
+
+        hitsByCible.push_back ( pair < string, int > ( *(it -> first), sumHits ) );
     }
 
     sort ( hitsByCible.begin(), hitsByCible.end(), compare );
-
     int i = 1;
 
-    while ( i < hitsByCible.size() + 1 && i <= 10 )
-    {
+    while ( i < hitsByCible.size() + 1 && i <= 10 ){
+
         cout << hitsByCible[hitsByCible.size() - i].first << " (" << hitsByCible[hitsByCible.size() - i].second << " hits)" << endl;
         i++;
     }
 } //----- makeTop10
 
-int convertHourInt(const string& heureString) {
-    // Utilisation d'un flux de chaînes pour extraire les parties de l'heure
-    istringstream ss(heureString);
+int StatLog::convertHourInt(const string & heureString) 
+// format hh:mm:ss
+{ 
+    int heure = 0;
 
-    int heures, minutes, secondes;
-    char delimiter;
+    heure += (heureString[0] - '0') * 100000;
+    heure += (heureString[1] - '0') * 10000;
+    heure += (heureString[3] - '0') * 1000;
+    heure += (heureString[4] - '0') * 100;
+    heure += (heureString[6] - '0') * 10;
+    heure += (heureString[7] - '0');
 
-    // Extraction des parties de l'heure
-    if (ss >> heures >> delimiter >> minutes >> delimiter >> secondes) {
-        // Calcul de l'entier HHMMSS
-        int heureInt = heures * 10000 + minutes * 100 + secondes;
-
-        return heureInt;
-    } else {
-        // Gestion d'une entrée invalide
-        cerr << "Format d'heure invalide : " << heureString << endl;
-        return -1; // Vous pouvez choisir une valeur de retour appropriée
-    }
+    return heure; // format hhmmss
 } //----- convertHourInt
 
-void StatLog::makeMapLine(ReadFile file, bool extFilter, int startHeure)
+void StatLog::makeMapLine(ReadFile & file, bool extFilter, int startHeure)
 // Algorithme :
 //
 {
     vector <string> badExtensions = {".js", ".css", ".jpg", ".gif", ".png", ".ico", ".ics", ".doc", ".docx", ".pdf", ".xml", ".zip", ".txt"};
+    bool acceptThisLine = true;
 
     if (startHeure != -1){
-        int intHeure = convertHourInt(file.getHour());
-        if (intHeure > startHeure || (startHeure > 230000 && startHeure + 10000 - 240000 > intHeure)){
-            return;
+
+        string strHeure = file.getHour();
+        int intHeure = convertHourInt(strHeure);
+
+        if ((intHeure >= startHeure && intHeure < startHeure + 10000 ) || (startHeure >= 230000 && startHeure % 240000 + 10000 > intHeure)){
+            
+            acceptThisLine = false;
         }   
     }
 
-    else if (extFilter && find(badExtensions.begin(), badExtensions.end(), getExtension()) != badExtensions.end()){
-        return; 
+    if (extFilter && find(badExtensions.begin(), badExtensions.end(), file.getExtension()) != badExtensions.end()){
+        
+        acceptThisLine = false; 
     }
 
-    else if (getStatus() == 400 || getStatus() == 500){
-        return;
+    if (file.getStatus() == "400" || file.getStatus() == "500"){
+
+        acceptThisLine = false;
     }
 
-    string source = getUrlReferer();
-    string destination = getUrlTarget();
-    listeNode.pop_back(source);
-    listeNode.pop_back(destination);
+    if (acceptThisLine){
 
+        string source = file.getUrlReferer();
+        string destination = file.getUrlTarget();
+        
+        if (find(listeNode.begin(), listeNode.end(), source) == listeNode.end()){
 
-    if (graph.find(source) == graph.end()){
-        map <string, int> newMap;
-        graph.insert(pair<string, map<string, int>>(source, newMap));
+            listeNode.push_back(source);
+        }
+
+        if (find(listeNode.begin(), listeNode.end(), destination) == listeNode.end()){
+
+            listeNode.push_back(destination);
+        }
+
+        list < string >::iterator itSourceFound = find(listeNode.begin(), listeNode.end(), source);
+        list < string >::iterator itDestFound = find(listeNode.begin(), listeNode.end(), destination);
+
+        string* adresseSource = &(*itSourceFound);
+        string* adresseDest = &(*itDestFound);
+
+        if (graph.find(adresseDest) == graph.end()){       
+
+            map <string *, int> newMap;
+            graph.insert(pair<string *, map<string *, int>>(adresseDest, newMap));
+        }
+        
+        if (graph[adresseDest].find(adresseSource) == graph[adresseDest].end()){        
+
+            graph[adresseDest].insert(pair<string *, int>(adresseSource, 1));
+
+        }else{
+
+            graph[adresseDest][adresseSource]++;
+        }
+
     }
     
-    if (graph[source].find(destination) == graph[source].end()){
-        graph[source].insert(pair<string, int>(destination, 1));
-    }
-    else{
-        graph[source][destination]++;
-    }
-    
-    return;
 }
 
-void StatLog::MakeMap(bool extFilter, int startHeure)
+void StatLog::makeMap(ReadFile & file, bool extFilter, int startHeure)
 // Algorithme :
 //
 {
-
     while (file.getNextLogLine()){
 
-        makeMapLine(extFilter, startHeure);
-
+        makeMapLine(file, extFilter, startHeure);
     }
-
-    return;
 }
 
 void StatLog::makeDotFile( string dotFile )
@@ -136,17 +158,20 @@ void StatLog::makeDotFile( string dotFile )
     {
         fout << "digraph {" << endl;
         int i = 0;
-        for( vector < string >::iterator it = listeNode.begin(); it != listeNode.end(); it++)
+        for( list < string >::iterator it = listeNode.begin(); it != listeNode.end(); it++)
         {
-            fout << *it << " [label=\"" << *it << "\"];" << endl;
+            fout << "\"" << &(*it) << "\" [label=\"" << *it << "\"];" << endl;
         }
 
-        for ( map < string, map < string, int > >::iterator it = graph.begin ( ) ; it != graph.end ( ) ; ++it  )
+
+
+        for ( map < string *, map < string *, int > >::iterator it = graph.begin ( ) ; it != graph.end ( ) ; ++it  )
         {
-            for ( map < string, int >::iterator it2 = it -> second.begin ( ) ; it2 != it -> second.end ( ) ; ++it2  )
+            for ( map < string *, int >::iterator it2 = it -> second.begin ( ) ; it2 != it -> second.end ( ) ; ++it2  )
             {
-                fout << it -> first << " -> " << it2 -> first << " [label=\"" << it2 -> second << "\"];" << endl;
+                fout << "\"" << it2 -> first << "\" -> \"" << it -> first << "\" [label=\"" << it2 -> second << "\"];" << endl;
             }
+                    
         }
         fout << "}" << endl;
     }
@@ -156,12 +181,7 @@ void StatLog::makeDotFile( string dotFile )
     }
 }
 //------------------------------------------------- Surcharge d'opérateurs
-StatLog & StatLog::operator = ( const StatLog & unStatLog )
-// Algorithme :
-//
-{
 
-} //----- Fin de operator =
 
 
 //-------------------------------------------- Constructeurs - destructeur
@@ -175,14 +195,11 @@ StatLog::StatLog ( const StatLog & unStatLog )
 } //----- Fin de StatLog (constructeur de copie)
 
 
-StatLog::StatLog (ReadFile file, int startHeure, bool extFilter)
+StatLog::StatLog (ReadFile & file, int startHeure, bool extFilter)
 // Algorithme :
 //
 {
 makeMap(file, extFilter, startHeure);
-listeNode.sort();
-listeNode.unique();
-
 #ifdef MAP
     cout << "Appel au constructeur de <StatLog>" << endl;
 #endif
@@ -207,3 +224,4 @@ StatLog::~StatLog ( )
 bool StatLog::compare ( pair < string, int > & a, pair < string, int > & b ) {
     return a.second < b.second;
 }
+
