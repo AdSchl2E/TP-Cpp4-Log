@@ -29,13 +29,13 @@ int main(int argc, char* argv[]) {
                 case 'e':
 
                     extFilter = true;
-
+                    
                     break;
 
                 case 't':
 
                     startHeure = atoi(argv[i + 1]);
-
+                    
                     break;
 
                 case 'g':
@@ -60,12 +60,12 @@ int main(int argc, char* argv[]) {
                 case 'r':
 
                     redirect = true;
-
+                
                     break;
 
                 default:
 
-                    cerr << "L'option " << argv[i] << " n'existe pas" << endl;
+                    cerr << "Erreur : L'option " << argv[i] << " n'existe pas" << endl;
 
                     return 1;
             }
@@ -96,7 +96,34 @@ int main(int argc, char* argv[]) {
         ReadFile File(logFile, baseURL);        // Pareil il faut une val par defaut pour baseURL qui soit compréhensible par le constructeur de ReadFile pour ne pas le prendre en compte quand il n'est pas activé
 
 
-        //aled
+        if (startHeure != -1) {
+
+            if (startHeure < 0 || startHeure > 23){
+
+                cerr << "Erreur : " << startHeure << " heure invalide" << endl;
+                return 1;
+            }
+            
+            cout << "Warning : only hits between " << startHeure << "h and " << (startHeure + 1)%24 << "h have been taken into account" << endl;
+
+            startHeure *= 10000;
+        }
+
+        if (extFilter) {
+
+            cout << "Warning : .js, .css, .jpg, .gif, .png, .ico, .ics, .doc, .docx, .pdf, .xml, .zip and .txt extensions have been excluded" << endl;
+        }
+
+        if (baseURL != "") {
+
+            cout << "Warning : the base URL is " << baseURL << endl;
+        }
+
+        if (redirect) {
+
+            cout << "Warning : the standard output has been redirected to a file" << endl;
+        }
+
         StatLog Stat(File, startHeure, extFilter);  // Faudrait des valeurs par defaut pour startHeure et extFilter qui soit compréhensible par le constructeur de StatLog pour ne pas les prendre en compte quand ils ne sont pas activé
 
         if (parametreDotFile) {
@@ -121,11 +148,11 @@ int main(int argc, char* argv[]) {
         cout << "Usage : ./analog [-e] [-t heure] [-g dotFile] [-u baseURL] [-h] [-r] <fichier.log>" << endl;
         cout << "Options :" << endl;
         cout << "-e : filtre les extensions" << endl;
-        cout << "-t heure : filtre les heures" << endl;
+        cout << "-t heure : filtre entre heure et heure + 1" << endl;
         cout << "-g dotFile : crée un fichier dot" << endl;
         cout << "-u baseURL : crée un fichier dot avec une url de base" << endl;
         cout << "-h : affiche l'aide" << endl;
-        cout << "-r : redirige la sortie standard vers un fichier" << endl;
+        cout << "-r : redirige la sortie standard vers un fichier" << endl; // C'est quoi ??
         cout << "<fichier.log> : fichier de log à analyser" << endl;
     }
     
