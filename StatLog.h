@@ -12,6 +12,7 @@
 
 //--------------------------------------------------- Interfaces utilisées
 #include <map>
+#include <list>
 #include <vector>
 #include <algorithm>
 #include <string>
@@ -109,8 +110,13 @@ protected:
     // Contrat :
     //
 
+    string adresseSansPrefixe(const string* adresse);
+    // Mode d'emploi :
+    // Enlève le préfixe 0x de l'adresse
+    // Contrat :
+    //
 //----------------------------------------------------- Attributs protégés
-    vector < string > listeNode;
+    list < string > listeNode;
     map < string *, map < string *, int > > graph;
 };
 

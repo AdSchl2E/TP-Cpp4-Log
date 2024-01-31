@@ -1,2 +1,11 @@
 digraph {
+"0x55a48772e770" [label="/page1.html"];
+"0x55a48772e7b0" [label="/page2.html"];
+"0x55a48772e930" [label="/page3.html"];
+"0x55a48772ea50" [label="/image.jpg"];
+"0x55a48772e7b0" -> "0x55a48772e770" [label="1"];
+"0x55a48772e770" -> "0x55a48772e7b0" [label="2"];
+"0x55a48772e930" -> "0x55a48772e7b0" [label="1"];
+"0x55a48772e7b0" -> "0x55a48772e930" [label="1"];
+"0x55a48772e930" -> "0x55a48772ea50" [label="1"];
 }

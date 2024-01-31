@@ -93,7 +93,7 @@ int main(int argc, char* argv[]) {
         cout << "aled : " << aled << endl;
         cout << "redirect : " << redirect << endl;
 
-        ReadFile File("court.log", baseURL);        // Pareil il faut une val par defaut pour baseURL qui soit compréhensible par le constructeur de ReadFile pour ne pas le prendre en compte quand il n'est pas activé
+        ReadFile File(logFile, baseURL);        // Pareil il faut une val par defaut pour baseURL qui soit compréhensible par le constructeur de ReadFile pour ne pas le prendre en compte quand il n'est pas activé
 
 
         //aled

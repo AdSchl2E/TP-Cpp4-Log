@@ -15,6 +15,7 @@ using namespace std;
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+#include <iomanip>
 
 
 //------------------------------------------------------ Include personnel
@@ -31,16 +32,20 @@ void StatLog::makeTop10 ( void )
 {
     vector < pair < string, int > > hitsByCible;
     cout << "on entre dans le makeTop10" << endl;
+    int sumHits = 0;
+
     for ( map < string *, map < string *, int > >::iterator it = graph.begin ( ) ; it != graph.end ( ) ; ++it  )
     {
+        sumHits = 0;
         cout << "on est dans le for" << endl;
         for ( map < string *, int >::iterator it2 = it -> second.begin ( ) ; it2 != it -> second.end ( ) ; ++it2  )
         {
-            cout << (it2 -> first) << endl;
-            cout << it2 -> second << endl;
-            hitsByCible.push_back ( pair < string, int > ( *it2 -> first, it2 -> second ) );
+            sumHits += it2 -> second;
         }
+
+        hitsByCible.push_back ( pair < string, int > ( *(it -> first), sumHits ) );
     }
+
     cout << "on a fait le for" << endl;
     sort ( hitsByCible.begin(), hitsByCible.end(), compare );
     cout << "on a fait le sort" << endl;
@@ -89,52 +94,61 @@ void StatLog::makeMapLine(ReadFile & file, bool extFilter, int startHeure)
 
     string source = file.getUrlReferer();
     string destination = file.getUrlTarget();
-    listeNode.push_back(source);
-    listeNode.push_back(destination);
+    
+    // if source and destination are not in listeNode, add them
+    if (find(listeNode.begin(), listeNode.end(), source) == listeNode.end()){
+        listeNode.push_back(source);
+    }
+    if (find(listeNode.begin(), listeNode.end(), destination) == listeNode.end()){
+        listeNode.push_back(destination);
+    }
 
-    vector < string >::iterator itSourceFound = find ( listeNode.begin(), listeNode.end(), source );
-    vector < string >::iterator itDestFound = find ( listeNode.begin(), listeNode.end(), source );
+    cout << "La source qu'on regarde actuellement ================= " << source << endl;
+    cout << "La destination qu'on regarde actuellement ================= " << destination << endl;
+    
+    list < string >::iterator itSourceFound = find(listeNode.begin(), listeNode.end(), source);
+    list < string >::iterator itDestFound = find(listeNode.begin(), listeNode.end(), destination);
 
-    cout << "string source " << *itSourceFound << endl;
-    cout << "adresse source " << &(*itSourceFound) << endl;
-    cout << "adresse dest " << &(*itDestFound) << endl;
+    cout << "listeNode : " << endl;
+    for (list < string >::iterator it = listeNode.begin(); it != listeNode.end(); it++){
+        cout << *it << endl;
+    }
+    cout << "adresse de " << source << " : " << &(*itSourceFound) << endl;
+    cout << "adresse de " << destination << " : " << &(*itDestFound) << endl;
 
     string* adresseSource = &(*itSourceFound);
     string* adresseDest = &(*itDestFound);
 
-    cout << "La source qu'on regarde actuellement =========================================================== " << source << endl;
+    if (graph.find(adresseDest) == graph.end()){        // Il a pas trouvé l'adresseDest dans le graph
 
-    if (graph.find(adresseSource) == graph.end()){        // Il a pas trouvé l'adresseSource dans le graph
-
-        cout << " ----------------------------- L'adresse de la source n'est pas dans le graph" << adresseSource << endl;
+        cout << " --------------- L'adresse de la dest n'est pas dans le graph : " << adresseDest << endl;
         map <string *, int> newMap;
-        graph.insert(pair<string *, map<string *, int>>(adresseSource, newMap));
+        graph.insert(pair<string *, map<string *, int>>(adresseDest, newMap));
     }
     
-    if (graph[adresseSource].find(adresseDest) == graph[adresseSource].end()){         // Il a pas trouvé la destination dans l'adresseSource
+    if (graph[adresseDest].find(adresseSource) == graph[adresseDest].end()){         // Il a pas trouvé la destination dans l'adresseDest
 
-        cout << "Il est là" << adresseSource << endl;
+        cout << "Il est là" << adresseDest << endl;
 
-        graph[adresseSource].insert(pair<string *, int>(adresseDest, 1));
-        cout << "Errurr" << endl;
+        graph[adresseDest].insert(pair<string *, int>(adresseSource, 1));
     }
     else
     {
-
         cout << "La mort ?" << endl;
 
-        graph[adresseSource][adresseDest]++;
+        graph[adresseDest][adresseSource]++;
     }
-    cout << "Errurr2" << endl;
-    cout << "Errurr3" << endl;
 
     for ( map < string *, map < string *, int > >::iterator it = graph.begin ( ) ; it != graph.end ( ) ; ++it  )
     {
+        cout << "______________________________________" << endl;
         for ( map < string *, int >::iterator it2 = it -> second.begin ( ) ; it2 != it -> second.end ( ) ; ++it2  )
         {
-            cout << it -> first << " -> " << it2 -> first << " : " << it2 -> second << endl;
+            cout << it -> first << "(" << *it->first << ") -> " << it2 -> first << "(" << *it2->first << ")  : " << it2 -> second << endl;
         }
     }
+
+    cout << "==========================================================" << endl;
     return;
 }
 
@@ -162,17 +176,20 @@ void StatLog::makeDotFile( string dotFile )
     {
         fout << "digraph {" << endl;
         int i = 0;
-        for( vector < string >::iterator it = listeNode.begin(); it != listeNode.end(); it++)
+        for( list < string >::iterator it = listeNode.begin(); it != listeNode.end(); it++)
         {
-            fout << *it << " [label=\"" << *it << "\"];" << endl;
+            fout << "\"" << &(*it) << "\" [label=\"" << *it << "\"];" << endl;
         }
+
+
 
         for ( map < string *, map < string *, int > >::iterator it = graph.begin ( ) ; it != graph.end ( ) ; ++it  )
         {
             for ( map < string *, int >::iterator it2 = it -> second.begin ( ) ; it2 != it -> second.end ( ) ; ++it2  )
             {
-                fout << it -> first << " -> " << it2 -> first << " [label=\"" << it2 -> second << "\"];" << endl;
+                fout << "\"" << it2 -> first << "\" -> \"" << it -> first << "\" [label=\"" << it2 -> second << "\"];" << endl;
             }
+                    
         }
         fout << "}" << endl;
     }
@@ -202,11 +219,6 @@ StatLog::StatLog (ReadFile & file, int startHeure, bool extFilter)
 {
 makeMap(file, extFilter, startHeure);
 cout << "Enfait makemap c'est fini" << endl;
-sort(listeNode.begin(), listeNode.end());
-cout << "Enfait sort c'est fini" << endl;
-unique(listeNode.begin(), listeNode.end());
-cout << "Enfait unique c'est fini" << endl;
-
 #ifdef MAP
     cout << "Appel au constructeur de <StatLog>" << endl;
 #endif
@@ -230,4 +242,19 @@ StatLog::~StatLog ( )
 
 bool StatLog::compare ( pair < string, int > & a, pair < string, int > & b ) {
     return a.second < b.second;
+}
+
+string StatLog::adresseSansPrefixe(const string* adresse) {
+    const char hex_digits[] = "0123456789ABCDEF";
+    uintptr_t adresseInt = reinterpret_cast<uintptr_t>(adresse);
+
+    std::string adresseStr;
+    adresseStr.reserve(sizeof(uintptr_t) * 2);
+
+    for (int i = sizeof(uintptr_t) * 2 - 1; i >= 0; --i) {
+        int index = (adresseInt >> (i * 4)) & 0xF;
+        adresseStr += hex_digits[index];
+    }
+
+    return adresseStr;
 }
