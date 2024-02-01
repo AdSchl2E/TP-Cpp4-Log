@@ -2,6 +2,7 @@ echo "-----------------------------------------------------------"
 
 execDir=`pwd`
 
+
 if [ "$1" = "" ]
 then
   echo "No directory given, default to current"
@@ -158,7 +159,7 @@ fi
 echo "-----------------------------------------------------------"
 echo 
 
-cd $execDir
+cd "$execDir"
 
 # log result in $2 if filename provided
 if [ "$2" != "" ]
