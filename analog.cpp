@@ -122,7 +122,7 @@ int main(int argc, char* argv[])
             cout << "Warning : the standard output has been redirected to a file" << endl;
         }
 
-        StatLog Stat(File, startHeure, extFilter);  // Faudrait des valeurs par defaut pour startHeure et extFilter qui soit compréhensible par le constructeur de StatLog pour ne pas les prendre en compte quand ils ne sont pas activé
+        StatLog Stat(File, startHeure, extFilter, baseURL);  // Faudrait des valeurs par defaut pour startHeure et extFilter qui soit compréhensible par le constructeur de StatLog pour ne pas les prendre en compte quand ils ne sont pas activé
 
         if (parametreDotFile) 
         {

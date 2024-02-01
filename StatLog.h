@@ -35,7 +35,7 @@ class StatLog
 public:
 //----------------------------------------------------- Méthodes publiques
 
-    void makeMapLine(ReadFile & file, bool extFilter, int startHeure);
+    void makeMapLine(ReadFile & file, bool extFilter, int startHeure, string baseURL);
     // Mode d'emploi : On appelle la fonction pour ajouter une ligne au graph à partir des infos de
     // l'objet ReadFile avec les différents méthodes get de l'objet ReadFile file. On peut filtrer 
     // les extensions et les heures à partir des paramètres.
@@ -43,7 +43,7 @@ public:
     // Contrat : La méthode ne va pas récupérer les infos de la ligne suivante pour la suite
     // La méthode vérifie si la requête est valide (code 400 ou 500) et les filtres avant d'inserer
 
-    void makeMap(ReadFile & file, bool extFilter, int startHeure);
+    void makeMap(ReadFile & file, bool extFilter, int startHeure, string baseURL);
     // Mode d'emploi : On appelle la fonction pour créer le graphe complet à partir des infos du fichier log.
     // On peut filtrer les extensions et les heures à partir des paramètres.
     //
@@ -64,7 +64,7 @@ public:
 
 //-------------------------------------------- Constructeurs - destructeur
 
-    StatLog (ReadFile & file, int startHeure, bool extFilter);
+    StatLog (ReadFile & file, int startHeure, bool extFilter, string baseURL);
     // Mode d'emploi :
     // On appelle le constructeur pour créer un objet StatLog à partir d'un objet ReadFile
     // On peut filtrer les extensions et les heures à partir des paramètres.
@@ -92,6 +92,8 @@ protected:
     // Convertit une heure au format hh:mm:ss en un entier au format hhmmss
     // Contrat :
     // L'heure doit être au format hh:mm:ss
+
+    string removeBaseURL(string & URL, string & baseURL);
     
 //----------------------------------------------------- Attributs protégés
     list < string > listeNode;

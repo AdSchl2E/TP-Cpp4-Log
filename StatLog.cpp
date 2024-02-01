@@ -79,7 +79,7 @@ int StatLog::convertHourInt(const string & heureString)
     return heure; // format hhmmss
 } //----- convertHourInt
 
-void StatLog::makeMapLine(ReadFile & file, bool extFilter, int startHeure)
+void StatLog::makeMapLine(ReadFile & file, bool extFilter, int startHeure, string baseURL)
 // Algorithme :
 // On récupère les infos de la ligne du fichier de log et on les ajoute au graph
 // On vérifie si la requête est valide (code 400 ou 500) et les filtres avant d'inserer
@@ -108,10 +108,17 @@ void StatLog::makeMapLine(ReadFile & file, bool extFilter, int startHeure)
         acceptThisLine = false;
     }
 
+
     if (acceptThisLine)
     {
         string source = file.getUrlReferer();
         string destination = file.getUrlTarget();
+
+        if (baseURL != "")
+        {
+            source = removeBaseURL(source, baseURL);
+            destination = removeBaseURL(destination, baseURL);
+        }
         
         if (find(listeNode.begin(), listeNode.end(), source) == listeNode.end())
         {
@@ -146,13 +153,13 @@ void StatLog::makeMapLine(ReadFile & file, bool extFilter, int startHeure)
     }
 } //----- makeMapLine
 
-void StatLog::makeMap(ReadFile & file, bool extFilter, int startHeure)
+void StatLog::makeMap(ReadFile & file, bool extFilter, int startHeure, string baseURL)
 // Algorithme :
 // On appelle la fonction pour créer le graphe complet à partir des infos du fichier log.
 {
     while (file.getNextLogLine())
     {
-        makeMapLine(file, extFilter, startHeure);
+        makeMapLine(file, extFilter, startHeure, baseURL);
     }
 }
 
@@ -192,7 +199,7 @@ void StatLog::makeDotFile( string dotFile )
 
 //-------------------------------------------- Constructeurs - destructeur
 
-StatLog::StatLog (ReadFile & file, int startHeure, bool extFilter)
+StatLog::StatLog (ReadFile & file, int startHeure, bool extFilter, string baseURL)
 // Algorithme :
 //
 {
@@ -200,7 +207,7 @@ StatLog::StatLog (ReadFile & file, int startHeure, bool extFilter)
     cout << "Appel au constructeur de <StatLog>" << endl;
 #endif
 
-    makeMap(file, extFilter, startHeure);
+    makeMap(file, extFilter, startHeure, baseURL);
 
 } //----- Fin de StatLog
 
@@ -226,4 +233,16 @@ bool StatLog::compare ( pair < string, int > & a, pair < string, int > & b )
 {
     return a.second < b.second;
 } //----- compare
+
+string StatLog::removeBaseURL(string & URL, string & baseURL){
+
+    // Vérifier si URL commence par la baseURL
+    if (URL.find(baseURL) == 0) {
+        // Supprimer la baseURL de URL
+        URL.erase(0, baseURL.length());
+    }
+
+        // Afficher le résultat
+        return URL;
+}
 
