@@ -46,7 +46,7 @@ void StatLog::makeTop10 ( void )
     }
 
     sort ( hitsByCible.begin(), hitsByCible.end(), compare );
-    int i = 1;
+    unsigned int i = 1;
 
     while ( i < hitsByCible.size() + 1 && i <= 10 ){
 
@@ -157,7 +157,7 @@ void StatLog::makeDotFile( string dotFile )
     if( fout )    
     {
         fout << "digraph {" << endl;
-        int i = 0;
+        fout << "node [shape=record];" << endl;
         for( list < string >::iterator it = listeNode.begin(); it != listeNode.end(); it++)
         {
             fout << "\"" << &(*it) << "\" [label=\"" << *it << "\"];" << endl;
