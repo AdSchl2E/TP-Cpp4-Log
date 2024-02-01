@@ -1,12 +1,6 @@
-digraph {
-node [shape=record];
-"0x55b2b5992390" [label="/page1.html"];
-"0x55b2b59923d0" [label="/page2.html"];
-"0x55b2b5992550" [label="/page3.html"];
-"0x55b2b5992670" [label="/image.jpg"];
-"0x55b2b59923d0" -> "0x55b2b5992390" [label="1"];
-"0x55b2b5992390" -> "0x55b2b59923d0" [label="2"];
-"0x55b2b5992550" -> "0x55b2b59923d0" [label="1"];
-"0x55b2b59923d0" -> "0x55b2b5992550" [label="1"];
-"0x55b2b5992550" -> "0x55b2b5992670" [label="1"];
-}
+192.168.0.1 - - [08/Sep/2012:11:15:00 +0200] "GET /page2.html HTTP/1.1" 200 2000 "http://intranet-if.insa-lyon.fr/page1.html" "Mozilla/5.0"
+192.168.0.1 - - [08/Sep/2012:11:37:00 +0200] "GET /page1.html HTTP/1.1" 200 1000 "http://intranet-if.insa-lyon.fr/page2.html" "Mozilla/5.0"
+192.168.0.1 - - [08/Sep/2012:12:12:00 +0200] "GET /page2.html HTTP/1.1" 200 2000 "http://intranet-if.insa-lyon.fr/page3.html" "Mozilla/5.0"
+192.168.0.1 - - [08/Sep/2012:12:16:00 +0200] "GET /page3.html HTTP/1.1" 200 3000 "http://intranet-if.insa-lyon.fr/page2.html" "Mozilla/5.0"
+192.168.0.1 - - [08/Sep/2012:12:16:01 +0200] "GET /image.jpg HTTP/1.1" 200 50000 "http://intranet-if.insa-lyon.fr/page3.html" "Mozilla/5.0"
+192.168.0.1 - - [08/Sep/2012:12:59:00 +0200] "GET /page2.html HTTP/1.1" 200 2000 "http://intranet-if.insa-lyon.fr/page1.html" "Mozilla/5.0"

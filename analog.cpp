@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
     bool aled = false;
     bool redirect = false;
     bool parametreDotFile;
-
+    
     for (int i = 1; i < argc; i++) 
     {
         if (argv[i][0] == '-') 
@@ -88,6 +88,12 @@ int main(int argc, char* argv[])
 
         ReadFile File(logFile, baseURL);        // Pareil il faut une val par defaut pour baseURL qui soit compréhensible par le constructeur de ReadFile pour ne pas le prendre en compte quand il n'est pas activé
 
+        if (File.getFileError() == 1)
+        {
+            cerr << "Erreur : le fichier ne peut être ouvert, vérifiez sa validité" << endl;
+            return 1;
+        }
+
         if (startHeure != -1) 
         {
             if (startHeure < 0 || startHeure > 23)
@@ -123,6 +129,7 @@ int main(int argc, char* argv[])
             if (dotFile == "" || dotFile == logFile) 
             {                    // A voir si c utile de faire ça
                 cerr << "Erreur : pas de nom de fichier dot" << endl;
+                return 1;
             } 
             else 
             {

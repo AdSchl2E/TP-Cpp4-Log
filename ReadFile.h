@@ -111,6 +111,10 @@ public:
     // Mode d'emploi :
     // Renvoie l'identification du navigateur du client
 
+    int getFileError () const;
+    // Mode d'emploi :
+    // Renvoie l'attribut fileError pour connaître l'état d'ouverture
+
     bool getNextLogLine ();
     // Mode d'emploi :
     // Lis la prochaine ligne d'un fichier de log apache et met à jour la struct data

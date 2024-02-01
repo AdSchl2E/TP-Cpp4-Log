@@ -95,6 +95,11 @@ string ReadFile::getIdCli () const
     return data.idCli;
 }
 
+int ReadFile::getFileError () const
+{
+    return fileError;
+}
+
 bool ReadFile::getNextLogLine ()
 {
     string ligne;
@@ -239,7 +244,6 @@ ReadFile::ReadFile (string fichier, string url)
 
     if ((rFlux.rdstate() & ifstream::failbit) != 0)
     {
-        cerr << "Erreur : le fichier ne peut être ouvert, vérifiez sa validité" << endl;
         fileError = 1;
     }
 } //----- Fin de ReadFile
