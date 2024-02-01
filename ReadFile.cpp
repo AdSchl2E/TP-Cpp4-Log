@@ -170,6 +170,7 @@ bool ReadFile::getNextLogLine ()
             int end_guill = ligne.find('"', start);
             string test_slash = ligne.substr(start, end_guill-start);
             int slash = test_slash.find('/', 0);
+            
             if (slash == -1)
             {
                 end = end_guill;
@@ -180,6 +181,7 @@ bool ReadFile::getNextLogLine ()
             }
 
             string test_url = ligne.substr(start, end-start);
+
             if (test_url == urlLocale)
             {
                 start = end;
@@ -194,6 +196,7 @@ bool ReadFile::getNextLogLine ()
             end = ligne.find('"', start);
             test_url = ligne.substr(start, end-start);
             int test = test_url.find('?');
+
             if (slash == -1)
             {
                 data.urlReferer = "/";
@@ -206,10 +209,12 @@ bool ReadFile::getNextLogLine ()
             {
                 data.urlReferer = test_url.substr(0, test);
             }
+
             start = end+3;
             end = ligne.find('"', start);
             data.idCli= ligne.substr(start, end-start);
         }
+
         return true;
     }
     else
