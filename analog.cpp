@@ -9,14 +9,13 @@ using namespace std;
 int main(int argc, char* argv[]) {
     // On récupère les paramètres
     bool extFilter = false;
-    string startHeure = "-1";
+    int startHeure = -1;
     string logFile;
     string dotFile = "";
     string baseURL = "";
     bool aled = false;
     bool redirect = false;
-    bool extWarning = false;
-    bool parametreHour = false;
+
     bool parametreDotFile;
 
     // Le logfile est le dernier paramètre
@@ -30,20 +29,13 @@ int main(int argc, char* argv[]) {
                 case 'e':
 
                     extFilter = true;
-
-                    if (argv[i+1][0] == '-') {
-
-                        extWarning = true;
-                    }
-
+                    
                     break;
 
                 case 't':
 
                     startHeure = atoi(argv[i + 1]);
-
-                    parametreHour = true;
-                
+                    
                     break;
 
                 case 'g':
@@ -81,16 +73,15 @@ int main(int argc, char* argv[]) {
     }
 
     if (!aled){
-    vector <string> flagsWithParameters = {"-t", "-g", "-u"};
 
-    if (argc = 2 || (argc > 2 && find(flagsWithParameters.begin(), flagsWithParameters.end(), argv[argc - 2]) != flagsWithParameters.end())) {
-        logFile = argv[argc - 1];
-    }
-    
-    else{
+        if (argc > 1){
 
-        cerr << "Erreur : pas de fichier log" << endl;
-    }
+            logFile = argv[argc - 1];
+
+        }else{
+
+            cerr << "Erreur : pas de fichier log" << endl;
+        }
 
         // On affiche les paramètres
         /*
@@ -135,19 +126,11 @@ int main(int argc, char* argv[]) {
 
         StatLog Stat(File, startHeure, extFilter);  // Faudrait des valeurs par defaut pour startHeure et extFilter qui soit compréhensible par le constructeur de StatLog pour ne pas les prendre en compte quand ils ne sont pas activé
 
-        
-        
-        if (extWarning) {
-
-            cerr << "Attention : pas de parmètre après -e" << endl;
-        }
-        
         if (parametreDotFile) {
 
-            if (dotFile == "" || dotFile[0] == '-') {
+            if (dotFile == "") {                    // A voir si c utile de faire ça
 
                 cerr << "Erreur : pas de nom de fichier dot" << endl;
-                return 1;
 
             } else {
                 
@@ -157,22 +140,6 @@ int main(int argc, char* argv[]) {
 
             }
         }
-        else if (parametreHour) {
-            if (size(startHeure) != 8) {
-                cerr << "Erreur : format d'heure invalide (valeur attendu : HH:MM:SS)" << endl;
-                return 1;
-
-            } else if (atoi(startHeure[0] + startHeure[1]) > 24 || atoi(startHeure[3] + startHeure[4]) > 60 || atoi(startHeure[6] + startHeure[7]) > 60){
-                cerr << "Erreur : format d'heure invalide - il faut HH < 24, MM < 60 et SS < 60" << endl;
-                return 1;  
-            }
-
-        }
-
-
-
-
-        
 
         Stat.makeTop10();                           // Apparement on l'affiche dans tout les cas
 
