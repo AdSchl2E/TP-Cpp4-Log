@@ -1,9 +1,9 @@
 /*************************************************************************
-                           StatLog  -  description
+                           StatLog  -  Analyse de logs Apache
                              -------------------
-    début                : $DATE$
-    copyright            : (C) $YEAR$ par $AUTHOR$
-    e-mail               : $EMAIL$
+    début                : 15/01/2024
+    copyright            : (C) 2024 par SCHLEE Adam et CHAPARD Clément : B3309
+    e-mail               : adam.schlee@insa-lyon.fr, clement.chapard@insa-lyon.fr
 *************************************************************************/
 
 //---------- Réalisation de la classe <StatLog> (fichier StatLog.cpp) ------------
@@ -17,7 +17,6 @@ using namespace std;
 #include <algorithm>
 #include <iomanip>
 
-
 //------------------------------------------------------ Include personnel
 #include "StatLog.h"
 
@@ -26,19 +25,23 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
+
 void StatLog::makeTop10 ( void )
 // Algorithme :
-//
+// On crée un vecteur de pair de string et int pour stocker les hits par cible
+// On parcourt le graph et on ajoute les hits de chaque cible au vecteur
+// On trie le vecteur par ordre décroissant
+// On affiche les 10 premiers éléments du vecteur
 {
     vector < pair < string, int > > hitsByCible;
     int sumHits = 0;
 
-    for ( map < string *, map < string *, int > >::iterator it = graph.begin ( ) ; it != graph.end ( ) ; ++it  ){
-
+    for ( map < string *, map < string *, int > >::iterator it = graph.begin ( ) ; it != graph.end ( ) ; ++it  )
+    {
         sumHits = 0;
 
-        for ( map < string *, int >::iterator it2 = it -> second.begin ( ) ; it2 != it -> second.end ( ) ; ++it2  ){
-
+        for ( map < string *, int >::iterator it2 = it -> second.begin ( ) ; it2 != it -> second.end ( ) ; ++it2  )
+        {
             sumHits += it2 -> second;
         }
 
@@ -48,15 +51,21 @@ void StatLog::makeTop10 ( void )
     sort ( hitsByCible.begin(), hitsByCible.end(), compare );
     unsigned int i = 1;
 
-    while ( i < hitsByCible.size() + 1 && i <= 10 ){
-
+    while ( i < hitsByCible.size() + 1 && i <= 10 )
+    {
         cout << hitsByCible[hitsByCible.size() - i].first << " (" << hitsByCible[hitsByCible.size() - i].second << " hits)" << endl;
         i++;
     }
 } //----- makeTop10
 
 int StatLog::convertHourInt(const string & heureString) 
-// format hh:mm:ss
+// Algorithme :
+// On convertit l'heure en string en int pour pouvoir la comparer
+// On prend les caractères de l'heureString un par un et on les convertit en int
+// On les multiplie par la puissance de 10 correspondante et on les ajoute à l'heure
+// On renvoie l'heure en int
+// Contrat :
+// L'heure doit être au format hh:mm:ss
 { 
     int heure = 0;
 
@@ -72,44 +81,45 @@ int StatLog::convertHourInt(const string & heureString)
 
 void StatLog::makeMapLine(ReadFile & file, bool extFilter, int startHeure)
 // Algorithme :
-//
+// On récupère les infos de la ligne du fichier de log et on les ajoute au graph
+// On vérifie si la requête est valide (code 400 ou 500) et les filtres avant d'inserer
 {
     vector <string> badExtensions = {".js", ".css", ".jpg", ".gif", ".png", ".ico", ".ics", ".doc", ".docx", ".pdf", ".xml", ".zip", ".txt"};
     bool acceptThisLine = true;
 
-    if (startHeure != -1){
-
+    if (startHeure != -1)
+    {
         string strHeure = file.getHour();
         int intHeure = convertHourInt(strHeure);
 
-        if ((intHeure >= startHeure && intHeure < startHeure + 10000 ) || (startHeure >= 230000 && startHeure % 240000 + 10000 > intHeure)){
-            
+        if ((intHeure >= startHeure && intHeure < startHeure + 10000 ) || (startHeure >= 230000 && startHeure % 240000 + 10000 > intHeure))
+        {  
             acceptThisLine = false;
         }   
     }
 
-    if (extFilter && find(badExtensions.begin(), badExtensions.end(), file.getExtension()) != badExtensions.end()){
-        
+    if (extFilter && find(badExtensions.begin(), badExtensions.end(), file.getExtension()) != badExtensions.end())
+    {
         acceptThisLine = false; 
     }
 
-    if (file.getStatus() == "400" || file.getStatus() == "500"){
-
+    if (file.getStatus() == "400" || file.getStatus() == "500")
+    {
         acceptThisLine = false;
     }
 
-    if (acceptThisLine){
-
+    if (acceptThisLine)
+    {
         string source = file.getUrlReferer();
         string destination = file.getUrlTarget();
         
-        if (find(listeNode.begin(), listeNode.end(), source) == listeNode.end()){
-
+        if (find(listeNode.begin(), listeNode.end(), source) == listeNode.end())
+        {
             listeNode.push_back(source);
         }
 
-        if (find(listeNode.begin(), listeNode.end(), destination) == listeNode.end()){
-
+        if (find(listeNode.begin(), listeNode.end(), destination) == listeNode.end())
+        {
             listeNode.push_back(destination);
         }
 
@@ -119,38 +129,37 @@ void StatLog::makeMapLine(ReadFile & file, bool extFilter, int startHeure)
         string* adresseSource = &(*itSourceFound);
         string* adresseDest = &(*itDestFound);
 
-        if (graph.find(adresseDest) == graph.end()){       
-
+        if (graph.find(adresseDest) == graph.end())
+        {       
             map <string *, int> newMap;
             graph.insert(pair<string *, map<string *, int>>(adresseDest, newMap));
         }
         
-        if (graph[adresseDest].find(adresseSource) == graph[adresseDest].end()){        
-
+        if (graph[adresseDest].find(adresseSource) == graph[adresseDest].end())
+        {        
             graph[adresseDest].insert(pair<string *, int>(adresseSource, 1));
-
-        }else{
-
+        }
+        else
+        {
             graph[adresseDest][adresseSource]++;
         }
-
     }
-    
-}
+} //----- makeMapLine
 
 void StatLog::makeMap(ReadFile & file, bool extFilter, int startHeure)
 // Algorithme :
-//
+// On appelle la fonction pour créer le graphe complet à partir des infos du fichier log.
 {
-    while (file.getNextLogLine()){
-
+    while (file.getNextLogLine())
+    {
         makeMapLine(file, extFilter, startHeure);
     }
 }
 
 void StatLog::makeDotFile( string dotFile )
 // Algorithme :
-//
+// On crée le fichier dot à partir du graph
+// On écrit les noeuds et les arcs dans le fichier
 {
     ofstream fout(dotFile.c_str());
 
@@ -163,46 +172,36 @@ void StatLog::makeDotFile( string dotFile )
             fout << "\"" << &(*it) << "\" [label=\"" << *it << "\"];" << endl;
         }
 
-
-
         for ( map < string *, map < string *, int > >::iterator it = graph.begin ( ) ; it != graph.end ( ) ; ++it  )
         {
             for ( map < string *, int >::iterator it2 = it -> second.begin ( ) ; it2 != it -> second.end ( ) ; ++it2  )
             {
                 fout << "\"" << it2 -> first << "\" -> \"" << it -> first << "\" [label=\"" << it2 -> second << "\"];" << endl;
-            }
-                    
+            }         
         }
+
         fout << "}" << endl;
     }
     else
     {
         cout << "ERREUR: Impossible d'ouvrir le fichier." << endl;
     }
-}
+} //----- makeDotFile
+
 //------------------------------------------------- Surcharge d'opérateurs
 
-
-
 //-------------------------------------------- Constructeurs - destructeur
-StatLog::StatLog ( const StatLog & unStatLog )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <StatLog>" << endl;
-#endif
-} //----- Fin de StatLog (constructeur de copie)
-
 
 StatLog::StatLog (ReadFile & file, int startHeure, bool extFilter)
 // Algorithme :
 //
 {
-makeMap(file, extFilter, startHeure);
 #ifdef MAP
     cout << "Appel au constructeur de <StatLog>" << endl;
 #endif
+
+    makeMap(file, extFilter, startHeure);
+
 } //----- Fin de StatLog
 
 
@@ -221,7 +220,10 @@ StatLog::~StatLog ( )
 
 //----------------------------------------------------- Méthodes protégées
 
-bool StatLog::compare ( pair < string, int > & a, pair < string, int > & b ) {
+bool StatLog::compare ( pair < string, int > & a, pair < string, int > & b ) 
+// Algorithme :
+// On compare deux pairs de string et int
+{
     return a.second < b.second;
-}
+} //----- compare
 

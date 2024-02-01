@@ -1,13 +1,8 @@
-#include <iostream>
-#include <string>
-#include <vector>
 #include "ReadFile.h"
 #include "StatLog.h"
 
-using namespace std;
-
-int main(int argc, char* argv[]) {
-    // On récupère les paramètres
+int main(int argc, char* argv[]) 
+{
     bool extFilter = false;
     int startHeure = -1;
     string logFile;
@@ -15,17 +10,14 @@ int main(int argc, char* argv[]) {
     string baseURL = "";
     bool aled = false;
     bool redirect = false;
-
     bool parametreDotFile;
 
-    // Le logfile est le dernier paramètre
-
-    for (int i = 1; i < argc; i++) {
-
-        if (argv[i][0] == '-') {
-
-            switch (argv[i][1]) {
-
+    for (int i = 1; i < argc; i++) 
+    {
+        if (argv[i][0] == '-') 
+        {
+            switch (argv[i][1]) 
+            {
                 case 'e':
 
                     extFilter = true;
@@ -72,14 +64,14 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    if (!aled){
-
-        if (argc > 1){
-
+    if (!aled)
+    {
+        if (argc > 1)
+        {
             logFile = argv[argc - 1];
-
-        }else{
-
+        }
+        else
+        {
             cerr << "Erreur : pas de fichier log" << endl;
         }
 
@@ -95,11 +87,10 @@ int main(int argc, char* argv[]) {
 
         ReadFile File(logFile, baseURL);        // Pareil il faut une val par defaut pour baseURL qui soit compréhensible par le constructeur de ReadFile pour ne pas le prendre en compte quand il n'est pas activé
 
-
-        if (startHeure != -1) {
-
-            if (startHeure < 0 || startHeure > 23){
-
+        if (startHeure != -1) 
+        {
+            if (startHeure < 0 || startHeure > 23)
+            {
                 cerr << "Erreur : " << startHeure << " heure invalide" << endl;
                 return 1;
             }
@@ -109,42 +100,41 @@ int main(int argc, char* argv[]) {
             startHeure *= 10000;
         }
 
-        if (extFilter) {
-
+        if (extFilter) 
+        {
             cout << "Warning : .js, .css, .jpg, .gif, .png, .ico, .ics, .doc, .docx, .pdf, .xml, .zip and .txt extensions have been excluded" << endl;
         }
 
-        if (baseURL != "") {
-
+        if (baseURL != "") 
+        {
             cout << "Warning : the base URL is " << baseURL << endl;
         }
 
-        if (redirect) {
-
+        if (redirect) 
+        {
             cout << "Warning : the standard output has been redirected to a file" << endl;
         }
 
         StatLog Stat(File, startHeure, extFilter);  // Faudrait des valeurs par defaut pour startHeure et extFilter qui soit compréhensible par le constructeur de StatLog pour ne pas les prendre en compte quand ils ne sont pas activé
 
-        if (parametreDotFile) {
-
-            if (dotFile == "") {                    // A voir si c utile de faire ça
-
+        if (parametreDotFile) 
+        {
+            if (dotFile == "") 
+            {                    // A voir si c utile de faire ça
                 cerr << "Erreur : pas de nom de fichier dot" << endl;
-
-            } else {
-                
+            } 
+            else 
+            {
                 cout << "Dot-file " << dotFile << " in generation..." << endl;
                 Stat.makeDotFile(dotFile);
                 cout << "Dot-file " << dotFile << " generated" << endl;
-
             }
         }
 
         Stat.makeTop10();                           // Apparement on l'affiche dans tout les cas
-
-    } else { // If aled
-
+    } 
+    else 
+    { // If aled
         cout << "Usage : ./analog [-e] [-t heure] [-g dotFile] [-u baseURL] [-h] [-r] <fichier.log>" << endl;
         cout << "Options :" << endl;
         cout << "-e : filtre les extensions" << endl;

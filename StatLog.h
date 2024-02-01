@@ -1,9 +1,9 @@
 /*************************************************************************
-                           StatLog  -  description
+                           StatLog  -  Analyse de logs Apache
                              -------------------
-    début                : $DATE$
-    copyright            : (C) $YEAR$ par $AUTHOR$
-    e-mail               : $EMAIL$
+    début                : 15/01/2024
+    copyright            : (C) 2024 par SCHLEE Adam et CHAPARD Clément : B3309
+    e-mail               : adam.schlee@insa-lyon.fr, clement.chapard@insa-lyon.fr
 *************************************************************************/
 
 //---------- Interface de la classe <StatLog> (fichier StatLog.h) ----------------
@@ -24,8 +24,8 @@ using namespace std;
 
 //------------------------------------------------------------------------
 // Rôle de la classe <StatLog>
-//
-//
+// La classe StatLog permet de créer un graphe à partir d'un fichier log
+// et de le manipuler pour créer un fichier dot et un top 10 des pages les plus visitées
 //------------------------------------------------------------------------
 
 class StatLog
@@ -34,11 +34,6 @@ class StatLog
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
 
     void makeMapLine(ReadFile & file, bool extFilter, int startHeure);
     // Mode d'emploi : On appelle la fonction pour ajouter une ligne au graph à partir des infos de
@@ -67,32 +62,20 @@ public:
     // Contrat :
     // Il faut que l'objet ReadFile file soit initialisé et passer dans le constructeur de StatLog
 
-//------------------------------------------------- Surcharge d'opérateurs
-    StatLog & operator = ( const StatLog & unStatLog );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
-
 //-------------------------------------------- Constructeurs - destructeur
-    StatLog ( const StatLog & unStatLog );
-    // Mode d'emploi (constructeur de copie) :
-    //
-    // Contrat :
-    //
 
     StatLog (ReadFile & file, int startHeure, bool extFilter);
     // Mode d'emploi :
-    //
+    // On appelle le constructeur pour créer un objet StatLog à partir d'un objet ReadFile
+    // On peut filtrer les extensions et les heures à partir des paramètres.
     // Contrat :
-    //
+    // Il faut que l'objet ReadFile file soit initialisé et passer dans le constructeur de StatLog
 
     virtual ~StatLog ( );
     // Mode d'emploi :
-    //
+    // On appelle le destructeur pour détruire l'objet StatLog
     // Contrat :
-    //
+    // Il faut que l'objet StatLog soit initialisé
 
 //------------------------------------------------------------------ PRIVE
 
@@ -102,19 +85,17 @@ protected:
     // Mode d'emploi :
     // Compare deux pairs de string et int
     // Contrat :
-    //
+    // Les deux pairs doivent être initialisés
 
     int convertHourInt(const string & heureString);
     // Mode d'emploi :
     // Convertit une heure au format hh:mm:ss en un entier au format hhmmss
     // Contrat :
-    //
+    // L'heure doit être au format hh:mm:ss
     
 //----------------------------------------------------- Attributs protégés
     list < string > listeNode;
     map < string *, map < string *, int > > graph;
 };
-
-//-------------------------------- Autres définitions dépendantes de <StatLog>
 
 #endif // StatLog_H

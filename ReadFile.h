@@ -1,9 +1,9 @@
 /*************************************************************************
-                           ReadFile  -  classe de lecture fichier log
+                           ReadFile  -  Lecture d'un fichier log et récupération des infos
                              -------------------
-    début                : $DATE$
-    copyright            : (C) $YEAR$ par $AUTHOR$
-    e-mail               : $EMAIL$
+    début                : 15/01/2024
+    copyright            : (C) 2024 par MANTZARIDES Guillaume et FELZINES Joris
+    e-mail               : guillaume.mantzarides@insa-lyon.fr, joris.felzines@insa-lyon.fr
 *************************************************************************/
 
 //---------- Interface de la classe <ReadFile> (fichier ReadFile.h) ----------------
@@ -15,7 +15,6 @@
 #include <fstream>
 #include <string>
 using namespace std;
-
 
 //------------------------------------------------------------- Constantes
 
@@ -37,11 +36,12 @@ typedef struct
     string domain = "";
     string urlReferer;
     string idCli;
+
 } LogData;
 //------------------------------------------------------------------------
 // Rôle de la classe <ReadFile>
-//
-//
+// La classe ReadFile permet de lire un fichier de log apache et de récupérer les informations
+// de chaque ligne dans une structure LogData.
 //------------------------------------------------------------------------
 
 class ReadFile
@@ -50,70 +50,66 @@ class ReadFile
 
 public:
 //----------------------------------------------------- Méthodes publiques
-// type Méthode ( liste des paramètres );
-// Mode d'emploi :
-//
-// Contrat :
-//
+
     string getIp () const;
     // Mode d'emploi :
-    // renvoie l'IP du client émetteur de la requête
+    // Renvoie l'IP du client émetteur de la requête
 
     string getUserNameLog () const;
     // Mode d'emploi :
-    // renvoie le nom d'utilisateur du visiteur
+    // Renvoie le nom d'utilisateur du visiteur
 
     string getNameUser () const;
     // Mode d'emploi :
-    // renvoie l'alias du visiteur
+    // Renvoie l'alias du visiteur
 
     string getDate () const;
     // Mode d'emploi :
-    // renvoie la date sous la forme DD/MMM/YYYY
+    // Renvoie la date sous la forme DD/MMM/YYYY
 
     string getHour () const;
     // Mode d'emploi :
-    // renvoie l'heure sous la forme HH:MM:SS
+    // Renvoie l'heure sous la forme HH:MM:SS
 
     string getGmtModif () const;
     // Mode d'emploi :
-    // renvoie la différence en rapport avec GMT (+XXXX)
+    // Renvoie la différence en rapport avec GMT (+XXXX)
 
     string getRequest () const;
     // Mode d'emploi :
-    // renvoie le type de requête exécutéé (GET, POST...)
+    // Renvoie le type de requête exécutéé (GET, POST...)
 
     string getUrlTarget () const;
     // Mode d'emploi :
-    // renvoie l'URL du document demandé
+    // Renvoie l'URL du document demandé
 
     string getExtension () const;
     // Mode d'emploi :
-    // renvoie l'extension du document demandé
+    // Renvoie l'extension du document demandé
 
     string getProtocolV () const;
     // Mode d'emploi :
-    // renvoie la version du protocole 
+    // Renvoie la version du protocole 
 
     string getStatus () const;
     // Mode d'emploi :
-    // renvoie le code retour de la réponse du serveur
+    // Renvoie le code retour de la réponse du serveur
 
     string getDataSize () const;
     // Mode d'emploi :
-    // renvoie la taille en octets de la réponse
+    // Renvoie la taille en octets de la réponse
 
     string getDomain () const;
     // Mode d'emploi :
-    // renvoie le domaine du referer
+    // Renvoie le domaine du referer
 
     string getUrlReferer () const;
     // Mode d'emploi :
-    // renvoie l'URL actuelle du referer, donc là où le client se trouve lorsqu'il effectue la requête
+    // Renvoie l'URL actuelle du referer, donc là où le client se trouve lorsqu'il effectue la requête
 
     string getIdCli () const;
     // Mode d'emploi :
-    // renvoie l'identification du navigateur du client
+    // Renvoie l'identification du navigateur du client
 
     bool getNextLogLine ();
     // Mode d'emploi :
@@ -123,23 +119,19 @@ public:
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    ReadFile ( const ReadFile & unReadFile );
-    // Mode d'emploi (constructeur de copie) :
-    //
-    // Contrat :
-    //
 
     ReadFile (string nomFic, string url = "intranet-if.insa-lyon.fr");
     // Mode d'emploi :
+    // Crée un objet ReadFile qui permet de lire un fichier de log apache et de récupérer les informations
     // Par défaut urlLocale vaut "intranet-if.insa-lyon.fr"
     // Contrat :
-    // 
+    // Le fichier doit être un fichier de log apache
 
     virtual ~ReadFile ( );
     // Mode d'emploi :
-    //
+    // Détruit l'objet ReadFile
     // Contrat :
-    //
+    // L'objet ReadFile doit être initialisé
 
 //------------------------------------------------------------------ PRIVE
 

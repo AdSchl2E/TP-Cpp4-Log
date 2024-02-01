@@ -1,9 +1,9 @@
 /*************************************************************************
-                           ReadFile  -  description
+                           ReadFile  -  Lecture d'un fichier log et récupération des infos
                              -------------------
-    début                : $DATE$
-    copyright            : (C) $YEAR$ par $AUTHOR$
-    e-mail               : $EMAIL$
+    début                : 15/01/2024
+    copyright            : (C) 2024 par MANTZARIDES Guillaume et FELZINES Joris
+    e-mail               : guillaume.mantzarides@insa-lyon.fr, joris.felzines@insa-lyon.fr
 *************************************************************************/
 
 //---------- Réalisation de la classe <ReadFile> (fichier ReadFile.cpp) ------------
@@ -11,8 +11,6 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-// using namespace std;
-// #include <iostream>
 
 //------------------------------------------------------ Include personnel
 #include "ReadFile.h"
@@ -101,6 +99,7 @@ bool ReadFile::getNextLogLine ()
 {
     string ligne;
     getline(rFlux, ligne);
+
     if (rFlux)
     {
         int start;
@@ -145,6 +144,7 @@ bool ReadFile::getNextLogLine ()
         start = tmp_start;
         int end_space = ligne.find(' ', start);
         int end_dot = ligne.find('.', start);
+
         if (end_dot < end_space)
         {
             data.extension = ligne.substr(end_dot, end_space-end_dot);
@@ -159,6 +159,7 @@ bool ReadFile::getNextLogLine ()
         data.dataSize = ligne.substr(start, end-start);
 
         start = end+2;
+
         if (ligne.substr(start, 1) == "-")
         {
             data.urlReferer = "-";
@@ -217,31 +218,20 @@ bool ReadFile::getNextLogLine ()
     }
 }
 
-
-//------------------------------------------------- Surcharge d'opérateurs
-
-
 //-------------------------------------------- Constructeurs - destructeur
-ReadFile::ReadFile ( const ReadFile & unReadFile )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <ReadFile>" << endl;
-#endif
-} //----- Fin de ReadFile (constructeur de copie)
-
 
 ReadFile::ReadFile (string fichier, string url)
 // Algorithme :
-//
+// On ouvre le fichier et on vérifie qu'il est bien ouvert
 {
     #ifdef MAP
         cout << "Appel au constructeur de <ReadFile>" << endl;
     #endif
+
     nomFic = fichier;
     urlLocale = url;
     rFlux.open(fichier);
+
     if ((rFlux.rdstate() & ifstream::failbit) != 0)
     {
         cerr << "Erreur : le fichier ne peut être ouvert, vérifiez sa validité" << endl;
