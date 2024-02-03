@@ -10,6 +10,7 @@ int main(int argc, char* argv[])
     string baseURL = "";
     bool aled = false;
     bool redirect = false;
+    bool verbose = false;
     bool parametreDotFile;
     
     for (int i = 1; i < argc; i++) 
@@ -53,6 +54,12 @@ int main(int argc, char* argv[])
 
                     redirect = true;
                 
+                    break;
+
+                case 'v':
+
+                    verbose = true;
+
                     break;
 
                 default:
@@ -102,27 +109,36 @@ int main(int argc, char* argv[])
                 return 1;
             }
             
-            cout << "Warning : only hits between " << startHeure << "h and " << (startHeure + 1)%24 << "h have been taken into account" << endl;
+            if (verbose) 
+            {
+                cout << "option -t " << startHeure << " : only hits between " << startHeure << "h and " << (startHeure + 1)%24 << "h have been taken into account" << endl;
+            }
 
             startHeure *= 10000;
         }
 
-        if (extFilter) 
+        if (verbose) 
         {
-            cout << "Warning : .js, .css, .jpg, .gif, .png, .ico, .ics, .doc, .docx, .pdf, .xml, .zip and .txt extensions have been excluded" << endl;
+            cout << "option -v : verbose mode" << endl;
+
+            if (extFilter) 
+            {
+                cout << "option -e : .js, .css, .jpg, .gif, .png, .ico, .ics, .doc, .docx, .pdf, .xml, .zip and .txt extensions have been excluded" << endl;
+            }
+
+            if (baseURL != "") 
+            {
+                cout << "option -u " << baseURL << " : the base URL is " << baseURL << endl;
+            }
+
+            if (redirect) 
+            {
+                cout << "option -r : redirections have been taken into account" << endl;
+            }
         }
 
-        if (baseURL != "") 
-        {
-            cout << "Warning : the base URL is " << baseURL << endl;
-        }
 
-        if (redirect) 
-        {
-            cout << "Warning : the standard output has been redirected to a file" << endl;
-        }
-
-        StatLog Stat(File, startHeure, extFilter, baseURL);  // Faudrait des valeurs par defaut pour startHeure et extFilter qui soit compréhensible par le constructeur de StatLog pour ne pas les prendre en compte quand ils ne sont pas activé
+        StatLog Stat(File, startHeure, extFilter, baseURL, redirect); 
 
         if (parametreDotFile) 
         {
@@ -143,14 +159,15 @@ int main(int argc, char* argv[])
     } 
     else 
     { // If aled
-        cout << "Usage : ./analog [-e] [-t heure] [-g dotFile] [-u baseURL] [-h] [-r] <fichier.log>" << endl;
+        cout << "Usage : ./analog [-e] [-t heure] [-g dotFile] [-u baseURL] [-h] [-r] [-v] <fichier.log>" << endl;
         cout << "Options :" << endl;
         cout << "-e : filtre les extensions" << endl;
         cout << "-t heure : filtre entre heure et heure + 1" << endl;
         cout << "-g dotFile : crée un fichier dot" << endl;
         cout << "-u baseURL : crée un fichier dot avec une url de base" << endl;
         cout << "-h : affiche l'aide" << endl;
-        cout << "-r : redirige la sortie standard vers un fichier" << endl; // C'est quoi ??
+        cout << "-r : Prend en compte les redirections" << endl;    // A préciser
+        cout << "-v : Mode verbeux" << endl;    
         cout << "<fichier.log> : fichier de log à analyser" << endl;
     }
     

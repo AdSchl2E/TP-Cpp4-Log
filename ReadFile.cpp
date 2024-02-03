@@ -115,7 +115,7 @@ bool ReadFile::getNextLogLine ()
 
         start = end+1;
         end = ligne.find(' ', start);
-        data.userNameLog = ligne.substr(start, end-start);
+        data.userNameLog = ligne.substr(start, end-start); 
 
         start = end+1;
         end = ligne.find(' ', start);

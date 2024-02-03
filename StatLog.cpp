@@ -79,7 +79,7 @@ int StatLog::convertHourInt(const string & heureString)
     return heure; // format hhmmss
 } //----- convertHourInt
 
-void StatLog::makeMapLine(ReadFile & file, bool extFilter, int startHeure, string baseURL)
+void StatLog::makeMapLine(ReadFile & file, bool extFilter, int startHeure, string baseURL, bool redirectFilter)
 // Algorithme :
 // On récupère les infos de la ligne du fichier de log et on les ajoute au graph
 // On vérifie si la requête est valide (code 400 ou 500) et les filtres avant d'inserer
@@ -97,69 +97,73 @@ void StatLog::makeMapLine(ReadFile & file, bool extFilter, int startHeure, strin
             acceptThisLine = false;
         }   
     }
-
-    if (extFilter && find(badExtensions.begin(), badExtensions.end(), file.getExtension()) != badExtensions.end())
+    else if (extFilter && find(badExtensions.begin(), badExtensions.end(), file.getExtension()) != badExtensions.end())
     {
         acceptThisLine = false; 
     }
-
-    if (file.getStatus() == "400" || file.getStatus() == "500")
+    else if (file.getStatus() == "400" || file.getStatus() == "500")
     {
         acceptThisLine = false;
     }
-
 
     if (acceptThisLine)
     {
         string source = file.getUrlReferer();
         string destination = file.getUrlTarget();
 
+        cout << "baseURL : " << baseURL << " source : " << source << " destination : " << destination << endl;
+
         if (baseURL != "")
         {
             source = removeBaseURL(source, baseURL);
             destination = removeBaseURL(destination, baseURL);
         }
+
+        if ( (redirectFilter && source == "-") || source != "-" )
+        {
+            if (find(listeNode.begin(), listeNode.end(), source) == listeNode.end())
+            {
+                listeNode.push_back(source);
+            }
+
+            if (find(listeNode.begin(), listeNode.end(), destination) == listeNode.end())
+            {
+                listeNode.push_back(destination);
+            }
+
+            list < string >::iterator itSourceFound = find(listeNode.begin(), listeNode.end(), source);
+            list < string >::iterator itDestFound = find(listeNode.begin(), listeNode.end(), destination);
+
+            string* adresseSource = &(*itSourceFound);
+            string* adresseDest = &(*itDestFound);
+
+            if (graph.find(adresseDest) == graph.end())
+            {       
+                map <string *, int> newMap;
+                graph.insert(pair<string *, map<string *, int>>(adresseDest, newMap));
+            }
+            
+            if (graph[adresseDest].find(adresseSource) == graph[adresseDest].end())
+            {        
+                graph[adresseDest].insert(pair<string *, int>(adresseSource, 1));
+            }
+            else
+            {
+                graph[adresseDest][adresseSource]++;
+            }
+        }
         
-        if (find(listeNode.begin(), listeNode.end(), source) == listeNode.end())
-        {
-            listeNode.push_back(source);
-        }
-
-        if (find(listeNode.begin(), listeNode.end(), destination) == listeNode.end())
-        {
-            listeNode.push_back(destination);
-        }
-
-        list < string >::iterator itSourceFound = find(listeNode.begin(), listeNode.end(), source);
-        list < string >::iterator itDestFound = find(listeNode.begin(), listeNode.end(), destination);
-
-        string* adresseSource = &(*itSourceFound);
-        string* adresseDest = &(*itDestFound);
-
-        if (graph.find(adresseDest) == graph.end())
-        {       
-            map <string *, int> newMap;
-            graph.insert(pair<string *, map<string *, int>>(adresseDest, newMap));
-        }
         
-        if (graph[adresseDest].find(adresseSource) == graph[adresseDest].end())
-        {        
-            graph[adresseDest].insert(pair<string *, int>(adresseSource, 1));
-        }
-        else
-        {
-            graph[adresseDest][adresseSource]++;
-        }
     }
 } //----- makeMapLine
 
-void StatLog::makeMap(ReadFile & file, bool extFilter, int startHeure, string baseURL)
+void StatLog::makeMap(ReadFile & file, bool extFilter, int startHeure, string baseURL, bool redirectFilter)
 // Algorithme :
 // On appelle la fonction pour créer le graphe complet à partir des infos du fichier log.
 {
     while (file.getNextLogLine())
     {
-        makeMapLine(file, extFilter, startHeure, baseURL);
+        makeMapLine(file, extFilter, startHeure, baseURL, redirectFilter);
     }
 }
 
@@ -199,7 +203,7 @@ void StatLog::makeDotFile( string dotFile )
 
 //-------------------------------------------- Constructeurs - destructeur
 
-StatLog::StatLog (ReadFile & file, int startHeure, bool extFilter, string baseURL)
+StatLog::StatLog (ReadFile & file, int startHeure, bool extFilter, string baseURL, bool redirectFilter)
 // Algorithme :
 //
 {
@@ -207,7 +211,7 @@ StatLog::StatLog (ReadFile & file, int startHeure, bool extFilter, string baseUR
     cout << "Appel au constructeur de <StatLog>" << endl;
 #endif
 
-    makeMap(file, extFilter, startHeure, baseURL);
+    makeMap(file, extFilter, startHeure, baseURL, redirectFilter);
 
 } //----- Fin de StatLog
 
@@ -234,15 +238,15 @@ bool StatLog::compare ( pair < string, int > & a, pair < string, int > & b )
     return a.second < b.second;
 } //----- compare
 
-string StatLog::removeBaseURL(string & URL, string & baseURL){
-
-    // Vérifier si URL commence par la baseURL
-    if (URL.find(baseURL) == 0) {
-        // Supprimer la baseURL de URL
+string StatLog::removeBaseURL(string & URL, string & baseURL)
+// Algorithme :
+// On supprime la baseURL de l'URL
+// On renvoie l'URL sans la baseURL
+{
+    if (URL.find(baseURL) == 0) 
+    {
         URL.erase(0, baseURL.length());
     }
-
-        // Afficher le résultat
-        return URL;
+    return URL;
 }
 
