@@ -1,1 +1,1 @@
-../../analog -e -t 11 -g test.dot -u intranet-if.insa-lyon.fr -r anonymeCourt.log
+../../analog -e -t 11 -g test.dot -u intranet-if.insa-lyon.fr -r -v anonymeCourt.log

@@ -1,16 +1,17 @@
-Warning : only hits between 11h and 12h have been taken into account
-Warning : .js, .css, .jpg, .gif, .png, .ico, .ics, .doc, .docx, .pdf, .xml, .zip and .txt extensions have been excluded
-Warning : the base URL is intranet-if.insa-lyon.fr
-Warning : the standard output has been redirected to a file
+option -t 11 : only hits between 11h and 12h have been taken into account
+option -v : verbose mode
+option -e : .js, .css, .jpg, .gif, .png, .ico, .ics, .doc, .docx, .pdf, .xml, .zip and .txt extensions have been excluded
+option -u intranet-if.insa-lyon.fr : the base URL is intranet-if.insa-lyon.fr
+option -r : redirections have been taken into account
 Dot-file test.dot in generation...
 Dot-file test.dot generated
 /SiteWebIF/Intranet-etudiant.php (39 hits)
-/temps/3IF37.html (8 hits)
-/temps/3IF38.html (6 hits)
-/temps/3IF39.html (5 hits)
-/stages/Listestage.php (5 hits)
-/temps/3IF40.html (4 hits)
-/temps/4IF38.html (3 hits)
-/notesif/ (3 hits)
-/temps/ (3 hits)
-/temps/4IF37.html (2 hits)
+/notesif/ (18 hits)
+/notesif (17 hits)
+/temps/3IF1.ics (15 hits)
+/temps/FondInsa.jpg (13 hits)
+/temps/InsaIF.ico (13 hits)
+/temps/suivant.gif (10 hits)
+/temps/choix.gif (10 hits)
+/temps/precedent.gif (10 hits)
+/temps/style_emploi_du_temps.css (10 hits)

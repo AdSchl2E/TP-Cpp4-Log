@@ -111,8 +111,6 @@ void StatLog::makeMapLine(ReadFile & file, bool extFilter, int startHeure, strin
         string source = file.getUrlReferer();
         string destination = file.getUrlTarget();
 
-        cout << "baseURL : " << baseURL << " source : " << source << " destination : " << destination << endl;
-
         if (baseURL != "")
         {
             source = removeBaseURL(source, baseURL);
