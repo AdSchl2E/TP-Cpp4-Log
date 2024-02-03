@@ -97,7 +97,7 @@ void StatLog::makeMapLine(ReadFile & file, bool extFilter, int startHeure, strin
             acceptThisLine = false;
         }   
     }
-    else if (extFilter && find(badExtensions.begin(), badExtensions.end(), file.getExtension()) != badExtensions.end())
+    if (extFilter && find(badExtensions.begin(), badExtensions.end(), file.getExtension()) != badExtensions.end())
     {
         acceptThisLine = false; 
     }
