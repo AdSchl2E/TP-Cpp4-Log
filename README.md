@@ -23,7 +23,7 @@ Plusieurs options sont proposées :
 
 [-r] : permet de prendre en compte les redirections (status = "300" et urltraget = "-")
 
-[-v] : mode verbose
+[-v] : mode verbose (affiche des informations supplémentaires sur les opérations effectuées)
 
 <file.log> : le fichier à analyser, chaque ligne doit avoir la structure suivante
 
