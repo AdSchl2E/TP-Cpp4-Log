@@ -4,8 +4,9 @@ nKo=0
 nTotal=0
 nMis=0
 
-for i in Test*
+for i in $(find . -maxdepth 1 -type d -name 'Test*' | sort -V);
 do
+  i=$(basename "$i")  # Supprimer le préfixe './'
   ./test.sh $i results.csv
   result=$?
   if [ $result -eq 0 ]

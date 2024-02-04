@@ -3,15 +3,15 @@
 
 int main(int argc, char* argv[]) 
 {
-    bool extFilter = false;
-    int startHeure = -1;
     string logFile;
     string dotFile = "";
-    string baseURL = "";
-    bool aled = false;
-    bool redirect = false;
-    bool verbose = false;
-    bool parametreDotFile;
+    string localURL = "";
+    int startHour = -1;
+    bool helpOption = false;
+    bool extFilterOption = false;
+    bool redirectOption = false;
+    bool verboseOption = false;
+    bool dotFileOption = false;
     
     for (int i = 1; i < argc; i++) 
     {
@@ -21,154 +21,180 @@ int main(int argc, char* argv[])
             {
                 case 'e':
 
-                    extFilter = true;
+                    extFilterOption = true;
                     
                     break;
 
                 case 't':
 
-                    startHeure = atoi(argv[i + 1]);
+                    if (argv[i + 1][0] == '-' || i == argc - 2) 
+                    {
+                        cerr << "Error : The option -t must be followed by an hour" << endl;
+                        return 1;
+                    }
+
+                    startHour = atoi(argv[i + 1]);
                     
                     break;
 
                 case 'g':
 
+                    if (argv[i + 1][0] == '-' || i == argc - 2) 
+                    {
+                        cerr << "Error : The option -g must be followed by a file name" << endl;
+                        return 1;
+                    }
+
                     dotFile = argv[i + 1];
-                    parametreDotFile = true;
+                    dotFileOption = true;
 
                     break;
 
                 case 'u':
 
-                    baseURL = argv[i + 1];
+                    if (argv[i + 1][0] == '-' || i == argc - 2) 
+                    {
+                        cerr << "Error : The option -u must be followed by a local URL" << endl;
+                        return 1;
+                    }
+
+                    localURL = argv[i + 1];
 
                     break;
 
                 case 'h':
 
-                    aled = true;
+                    helpOption = true;
 
                     break;
 
                 case 'r':
 
-                    redirect = true;
+                    redirectOption = true;
                 
                     break;
 
                 case 'v':
 
-                    verbose = true;
+                    verboseOption = true;
 
                     break;
 
                 default:
 
-                    cerr << "Erreur : L'option " << argv[i] << " n'existe pas" << endl;
-
+                    cerr << "Error : The option " << argv[i] << " is not recognized" << endl;
                     return 1;
             }
         }
     }
 
-    if (!aled)
-    {
-        if (argc > 1)
+    if (!helpOption)
+    {   
+        if(argc > 1 && argv[argc - 1][0] != '-')
         {
             logFile = argv[argc - 1];
         }
         else
         {
-            cerr << "Erreur : pas de fichier log" << endl;
+            cerr << "Error : The log file is missing" << endl;
+            cerr << "Type ./analog -h for help" << endl;
             return 1;
         }
 
-        // On affiche les paramètres
-        /*
-        cout << "extFilter : " << extFilter << endl;
-        cout << "startHeure : " << startHeure << endl;
-        cout << "logFile : " << logFile << endl;
-        cout << "dotFile : " << dotFile << endl;
-        cout << "baseURL : " << baseURL << endl;
-        cout << "redirect : " << redirect << endl;
-        */
+        ReadFile File(logFile, localURL);      
 
-        ReadFile File(logFile, baseURL);        // Pareil il faut une val par defaut pour baseURL qui soit compréhensible par le constructeur de ReadFile pour ne pas le prendre en compte quand il n'est pas activé
-
-        if (File.getFileError() == 1)
+        if (File.GetFileError() == 1)
         {
-            cerr << "Erreur : le fichier ne peut être ouvert, vérifiez sa validité" << endl;
+            cerr << "Error : The file " << logFile << " does not exist or cannot be opened" << endl;
             return 1;
         }
 
-        if (startHeure != -1) 
+        if (verboseOption) 
         {
-            if (startHeure < 0 || startHeure > 23)
-            {
-                cerr << "Erreur : " << startHeure << " heure invalide" << endl;
-                return 1;
-            }
-            
-            if (verbose) 
-            {
-                cout << "option -t " << startHeure << " : only hits between " << startHeure << "h and " << (startHeure + 1)%24 << "h have been taken into account" << endl;
-            }
 
-            startHeure *= 10000;
-        }
+            cout << "----------------------- Options ------------------------" << endl;
+            cout << "option -v : Verbose mode" << endl;
 
-        if (verbose) 
-        {
-            cout << "option -v : verbose mode" << endl;
-
-            if (extFilter) 
+            if (extFilterOption) 
             {
                 cout << "option -e : .js, .css, .jpg, .gif, .png, .ico, .ics, .doc, .docx, .pdf, .xml, .zip and .txt extensions have been excluded" << endl;
             }
 
-            if (baseURL != "") 
+            if (localURL != "") 
             {
-                cout << "option -u " << baseURL << " : the base URL is " << baseURL << endl;
+                cout << "option -u " << localURL << " : The local URL is " << localURL << endl;
+            }
+            else
+            {
+                localURL = "intranet-if.insa-lyon.fr";
+                cout << "Default local URL is \"" << localURL << "\"" << endl;
             }
 
-            if (redirect) 
+            if (redirectOption) 
             {
-                cout << "option -r : redirections have been taken into account" << endl;
+                cout << "option -r : Redirection have been taken into account" << endl;
+            }
+
+            if (dotFileOption) 
+            {
+                cout << "option -g " << dotFile << " : A dot-file named " << dotFile << " will be generated" << endl;
             }
         }
 
-
-        StatLog Stat(File, startHeure, extFilter, baseURL, redirect); 
-
-        if (parametreDotFile) 
+        if (startHour != -1) 
         {
-            if (dotFile == "" || dotFile == logFile) 
-            {                    // A voir si c utile de faire ça
-                cerr << "Erreur : pas de nom de fichier dot" << endl;
-                return 1;
-            } 
-            else 
+            if (startHour < 0 || startHour > 23)
             {
-                cout << "Dot-file " << dotFile << " in generation..." << endl;
-                Stat.makeDotFile(dotFile);
-                cout << "Dot-file " << dotFile << " generated" << endl;
+                cerr << "Error : " << startHour << " is an invalid hour, it must be between 0 and 23" << endl;
+                return 1;
             }
+            
+            if (verboseOption) 
+            {
+                cout << "option -t " << startHour << " : Only hits between " << startHour << "h and " << (startHour + 1)%24 << "h have been taken into account" << endl;
+            }
+
+            startHour *= 10000;
         }
 
-        Stat.makeTop10();                           // Apparement on l'affiche dans tout les cas
+        if(verboseOption) 
+        {
+            cout << " --------------------------------------------------------" << endl;
+            cout << "File " << logFile << " is being analyzed..." << endl;
+            cout << "----------------------- Process -------------------------" << endl;
+        }
+
+        StatLog Stat(File, startHour, extFilterOption, localURL, redirectOption, verboseOption); 
+
+        if(verboseOption) 
+        {
+            cout << "---------------------------------------------------------" << endl;
+        }
+
+        if(dotFileOption) 
+        {
+            cout << "Dot-file " << dotFile << " in generation..." << endl;
+            Stat.MakeDotFile(dotFile);
+            cout << "Dot-file " << dotFile << " generated" << endl;
+            cout << "Command to generate the graph : dot -Tpng " << dotFile << " -o out.png" << endl;
+        }
+
+        Stat.DisplayTop10();                       
     } 
     else 
-    { // If aled
-        cout << "Usage : ./analog [-e] [-t heure] [-g dotFile] [-u baseURL] [-h] [-r] [-v] <fichier.log>" << endl;
+    { // If helpOption
+        cout << "------------------------ Help -------------------------" << endl;
+        cout << "Usage : ./analog [-e] [-t hour] [-g dotFile] [-u localURL] [-h] [-r] [-v] <file.log>" << endl;
         cout << "Options :" << endl;
-        cout << "-e : filtre les extensions" << endl;
-        cout << "-t heure : filtre entre heure et heure + 1" << endl;
-        cout << "-g dotFile : crée un fichier dot" << endl;
-        cout << "-u baseURL : crée un fichier dot avec une url de base" << endl;
-        cout << "-h : affiche l'aide" << endl;
-        cout << "-r : Prend en compte les redirections" << endl;    // A préciser
-        cout << "-v : Mode verbeux" << endl;    
-        cout << "<fichier.log> : fichier de log à analyser" << endl;
+        cout << "-e : Excludes some extensions (.js, .css, .jpg, .gif, .png, .ico, .ics, .doc, .docx, .pdf, .xml, .zip and .txt)" << endl;
+        cout << "-t hour : Only takes into account the hits between hour and hour + 1" << endl;
+        cout << "-g dotFile : Generates a dot file" << endl;
+        cout << "-u localURL : Allows you to specify a local URL (default: intranet-if.insa-lyon.fr)" << endl;
+        cout << "-h : Displays the help" << endl;
+        cout << "-r : Takes into account the redirections" << endl; // A préciser
+        cout << "-v : Verbose mode" << endl;  
+        cout << "<file.log> : Log file to be analyzed" << endl;
+        cout << "--------------------------------------------------------" << endl;
     }
     
     return 0;

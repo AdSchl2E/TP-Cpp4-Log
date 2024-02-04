@@ -20,187 +20,187 @@
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-string ReadFile::getIp () const
+string ReadFile::GetIp () const
 {
     return data.ip;
-}
+} //----- Fin de GetIp
 
-string ReadFile::getUserNameLog () const
+string ReadFile::GetUserNameLog () const
 {
     return data.userNameLog;
-}
+} //----- Fin de GetUserNameLog
 
-string ReadFile::getNameUser () const
+string ReadFile::GetNameUser () const
 {
     return data.nameUser;
-}
+} //----- Fin de GetNameUser
 
-string ReadFile::getDate () const
+string ReadFile::GetDate () const
 {
     return data.date;
-}
+} //----- Fin de GetDate
 
-string ReadFile::getHour () const
+string ReadFile::GetHour () const
 {
     return data.hour;
-}
+} //----- Fin de GetHour
 
-string ReadFile::getGmtModif () const
+string ReadFile::GetGmtModif () const
 {
     return data.gmtModif;
-}
+} //----- Fin de GetGmtModif
 
-string ReadFile::getRequest () const
+string ReadFile::GetRequest () const
 {
     return data.request;
-}
+} //----- Fin de GetRequest
 
-string ReadFile::getUrlTarget () const
+string ReadFile::GetUrlTarget () const
 {
     return data.urlTarget;
-}
+} //----- Fin de GetUrlTarget
 
-string ReadFile::getExtension () const
+string ReadFile::GetExtension () const
 {
     return data.extension;
-}
+} //----- Fin de GetExtension
 
-string ReadFile::getProtocolV () const
+string ReadFile::GetProtocolV () const
 {
     return data.protocolV;
-}
+} //----- Fin de GetProtocolV
 
-string ReadFile::getStatus () const
+string ReadFile::GetStatus () const
 {
     return data.status;
-}
+} //----- Fin de GetStatus
 
-string ReadFile::getDataSize () const
+string ReadFile::GetDataSize () const
 {
     return data.dataSize;
-}
+} //----- Fin de GetDataSize
 
-string ReadFile::getDomain () const
+string ReadFile::GetDomain () const
 {
     return data.domain;
-}
+} //----- Fin de GetDomain
 
-string ReadFile::getUrlReferer () const
+string ReadFile::GetUrlReferer () const
 {
     return data.urlReferer;
-}
+} //----- Fin de GetUrlReferer
 
-string ReadFile::getIdCli () const
+string ReadFile::GetIdCli () const
 {
     return data.idCli;
-}
+} //----- Fin de GetIdCli
 
-int ReadFile::getFileError () const
+int ReadFile::GetFileError () const
 {
     return fileError;
-}
+} //----- Fin de GetFileError
 
-bool ReadFile::getNextLogLine ()
+bool ReadFile::GetNextLogLine ()
 {
-    string ligne;
-    getline(rFlux, ligne);
+    string line;
+    getline(rFlux, line);
 
     if (rFlux)
     {
         int start;
         int end;
         
-        end = ligne.find(' ');
-        data.ip = ligne.substr(0, end);
+        end = line.find(' ');
+        data.ip = line.substr(0, end);
 
         start = end+1;
-        end = ligne.find(' ', start);
-        data.userNameLog = ligne.substr(start, end-start); 
+        end = line.find(' ', start);
+        data.userNameLog = line.substr(start, end-start); 
 
         start = end+1;
-        end = ligne.find(' ', start);
-        data.nameUser = ligne.substr(start, end-start);
+        end = line.find(' ', start);
+        data.nameUser = line.substr(start, end-start);
 
         start = end+2;
         end = start+11;
-        data.date = ligne.substr(start, end-start);
+        data.date = line.substr(start, end-start);
 
         start = end+1;
         end = start+8;
-        data.hour = ligne.substr(start, end-start);
+        data.hour = line.substr(start, end-start);
 
         start = end+1;
         end = start+5;
-        data.gmtModif = ligne.substr(start, end-start);
+        data.gmtModif = line.substr(start, end-start);
 
         start = end+3;
-        end = ligne.find(' ', start);
-        data.request = ligne.substr(start, end-start);
+        end = line.find(' ', start);
+        data.request = line.substr(start, end-start);
 
         start = end+1;
-        int tmp_start = start;
-        end = ligne.find(' ', start);
-        data.urlTarget = ligne.substr(start, end-start);
+        int tmpStart = start;
+        end = line.find(' ', start);
+        data.urlTarget = line.substr(start, end-start);
 
         start = end+1;
-        end = ligne.find('"', start);
-        data.protocolV = ligne.substr(start, end-start);
+        end = line.find('"', start);
+        data.protocolV = line.substr(start, end-start);
 
-        start = tmp_start;
-        int end_space = ligne.find(' ', start);
-        int end_dot = ligne.find('.', start);
+        start = tmpStart;
+        int endSpace = line.find(' ', start);
+        int endDot = line.find('.', start);
 
-        if (end_dot < end_space)
+        if (endDot < endSpace)
         {
-            data.extension = ligne.substr(end_dot, end_space-end_dot);
+            data.extension = line.substr(endDot, endSpace-endDot);
         }
 
         start = end+2;
-        end = ligne.find(' ', start);
-        data.status = ligne.substr(start, end-start);
+        end = line.find(' ', start);
+        data.status = line.substr(start, end-start);
 
         start = end+1;
-        end = ligne.find(' ', start);
-        data.dataSize = ligne.substr(start, end-start);
+        end = line.find(' ', start);
+        data.dataSize = line.substr(start, end-start);
 
         start = end+2;
 
-        if (ligne.substr(start, 1) == "-")
+        if (line.substr(start, 1) == "-")
         {
             data.urlReferer = "-";
         }
         else
         {
-            start = ligne.find('/', start) + 2;
-            int end_guill = ligne.find('"', start);
-            string test_slash = ligne.substr(start, end_guill-start);
-            int slash = test_slash.find('/', 0);
+            start = line.find('/', start) + 2;
+            int endGuill = line.find('"', start);
+            string testSlash = line.substr(start, endGuill-start);
+            int slash = testSlash.find('/', 0);
             
             if (slash == -1)
             {
-                end = end_guill;
+                end = endGuill;
             }
             else
             {
-                end = ligne.find('/', start);
+                end = line.find('/', start);
             }
 
-            string test_url = ligne.substr(start, end-start);
+            string testUrl = line.substr(start, end-start);
 
-            if (test_url == urlLocale)
+            if (testUrl == localURL)
             {
                 start = end;
-                data.domain = urlLocale;
+                data.domain = localURL;
             }
             else
             {
-                data.domain = test_url;
+                data.domain = testUrl;
             }
 
             start = end;
-            end = ligne.find('"', start);
-            test_url = ligne.substr(start, end-start);
-            int test = test_url.find('?');
+            end = line.find('"', start);
+            testUrl = line.substr(start, end-start);
+            int test = testUrl.find('?');
 
             if (slash == -1)
             {
@@ -208,16 +208,16 @@ bool ReadFile::getNextLogLine ()
             }
             else if (test == -1)
             {
-                data.urlReferer = test_url;
+                data.urlReferer = testUrl;
             }
             else
             {
-                data.urlReferer = test_url.substr(0, test);
+                data.urlReferer = testUrl.substr(0, test);
             }
 
             start = end+3;
-            end = ligne.find('"', start);
-            data.idCli= ligne.substr(start, end-start);
+            end = line.find('"', start);
+            data.idCli= line.substr(start, end-start);
         }
 
         return true;
@@ -226,11 +226,11 @@ bool ReadFile::getNextLogLine ()
     {
         return false;
     }
-}
-
+} //----- Fin de GetNextLogLine
+ 
 //-------------------------------------------- Constructeurs - destructeur
 
-ReadFile::ReadFile (string fichier, string url)
+ReadFile::ReadFile (string file, string url)
 // Algorithme :
 // On ouvre le fichier et on vérifie qu'il est bien ouvert
 {
@@ -238,9 +238,9 @@ ReadFile::ReadFile (string fichier, string url)
         cout << "Appel au constructeur de <ReadFile>" << endl;
     #endif
 
-    nomFic = fichier;
-    urlLocale = url;
-    rFlux.open(fichier);
+    fileName = file;
+    localURL = url;
+    rFlux.open(file);
 
     if ((rFlux.rdstate() & ifstream::failbit) != 0)
     {

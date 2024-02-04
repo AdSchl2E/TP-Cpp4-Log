@@ -7,7 +7,7 @@
 *************************************************************************/
 
 //---------- Interface de la classe <ReadFile> (fichier ReadFile.h) ----------------
-#if ! defined ( ReadFile_H )
+#if ! defined (ReadFile_H)
 #define ReadFile_H
 
 //--------------------------------------------------- Interfaces utilisées
@@ -51,71 +51,71 @@ class ReadFile
 public:
 //----------------------------------------------------- Méthodes publiques
 
-    string getIp () const;
+    string GetIp () const;
     // Mode d'emploi :
     // Renvoie l'IP du client émetteur de la requête
 
-    string getUserNameLog () const;
+    string GetUserNameLog () const;
     // Mode d'emploi :
     // Renvoie le nom d'utilisateur du visiteur
 
-    string getNameUser () const;
+    string GetNameUser () const;
     // Mode d'emploi :
     // Renvoie l'alias du visiteur
 
-    string getDate () const;
+    string GetDate () const;
     // Mode d'emploi :
     // Renvoie la date sous la forme DD/MMM/YYYY
 
-    string getHour () const;
+    string GetHour () const;
     // Mode d'emploi :
     // Renvoie l'heure sous la forme HH:MM:SS
 
-    string getGmtModif () const;
+    string GetGmtModif () const;
     // Mode d'emploi :
     // Renvoie la différence en rapport avec GMT (+XXXX)
 
-    string getRequest () const;
+    string GetRequest () const;
     // Mode d'emploi :
     // Renvoie le type de requête exécutéé (GET, POST...)
 
-    string getUrlTarget () const;
+    string GetUrlTarget () const;
     // Mode d'emploi :
     // Renvoie l'URL du document demandé
 
-    string getExtension () const;
+    string GetExtension () const;
     // Mode d'emploi :
     // Renvoie l'extension du document demandé
 
-    string getProtocolV () const;
+    string GetProtocolV () const;
     // Mode d'emploi :
     // Renvoie la version du protocole 
 
-    string getStatus () const;
+    string GetStatus () const;
     // Mode d'emploi :
     // Renvoie le code retour de la réponse du serveur
 
-    string getDataSize () const;
+    string GetDataSize () const;
     // Mode d'emploi :
     // Renvoie la taille en octets de la réponse
 
-    string getDomain () const;
+    string GetDomain () const;
     // Mode d'emploi :
     // Renvoie le domaine du referer
 
-    string getUrlReferer () const;
+    string GetUrlReferer () const;
     // Mode d'emploi :
     // Renvoie l'URL actuelle du referer, donc là où le client se trouve lorsqu'il effectue la requête
 
-    string getIdCli () const;
+    string GetIdCli () const;
     // Mode d'emploi :
     // Renvoie l'identification du navigateur du client
 
-    int getFileError () const;
+    int GetFileError () const;
     // Mode d'emploi :
     // Renvoie l'attribut fileError pour connaître l'état d'ouverture
 
-    bool getNextLogLine ();
+    bool GetNextLogLine ();
     // Mode d'emploi :
     // Lis la prochaine ligne d'un fichier de log apache et met à jour la struct data
 
@@ -124,10 +124,9 @@ public:
 
 //-------------------------------------------- Constructeurs - destructeur
 
-    ReadFile (string nomFic, string url = "intranet-if.insa-lyon.fr");
+    ReadFile (string fileName, string urlLocale);
     // Mode d'emploi :
     // Crée un objet ReadFile qui permet de lire un fichier de log apache et de récupérer les informations
-    // Par défaut urlLocale vaut "intranet-if.insa-lyon.fr"
     // Contrat :
     // Le fichier doit être un fichier de log apache
 
@@ -144,8 +143,8 @@ protected:
 
 //----------------------------------------------------- Attributs protégés
     LogData data;
-    string nomFic;
-    string urlLocale;
+    string fileName;
+    string localURL;
     ifstream rFlux;
     int fileError = 0;
 };

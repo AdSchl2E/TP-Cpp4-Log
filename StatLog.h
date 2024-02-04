@@ -7,7 +7,7 @@
 *************************************************************************/
 
 //---------- Interface de la classe <StatLog> (fichier StatLog.h) ----------------
-#if ! defined ( StatLog_H )
+#if ! defined (StatLog_H)
 #define StatLog_H
 
 //--------------------------------------------------- Interfaces utilisées
@@ -15,7 +15,6 @@
 #include <list>
 #include <vector>
 #include <algorithm>
-#include <string>
 #include "ReadFile.h"
 using namespace std;
 //------------------------------------------------------------- Constantes
@@ -34,29 +33,13 @@ class StatLog
 
 public:
 //----------------------------------------------------- Méthodes publiques
-
-    void makeMapLine(ReadFile & file, bool extFilter, int startHeure, string baseURL, bool redirect);
-    // Mode d'emploi : On appelle la fonction pour ajouter une ligne au graph à partir des infos de
-    // l'objet ReadFile avec les différents méthodes get de l'objet ReadFile file. On peut filtrer 
-    // les extensions et les heures à partir des paramètres.
-    //
-    // Contrat : La méthode ne va pas récupérer les infos de la ligne suivante pour la suite
-    // La méthode vérifie si la requête est valide (code 400 ou 500) et les filtres avant d'inserer
-
-    void makeMap(ReadFile & file, bool extFilter, int startHeure, string baseURL, bool redirect);
-    // Mode d'emploi : On appelle la fonction pour créer le graphe complet à partir des infos du fichier log.
-    // On peut filtrer les extensions et les heures à partir des paramètres.
-    //
-    // Contrat : la méthoder récupère la ligne suivante
-    // Il faut que l'objet ReadFile file soit initialisé et passer dans le constructeur de StatLog
-
-    void makeTop10();
+    void DisplayTop10 ( );
     // Mode d'emploi :
     // On appelle la fonction pour créer le top 10 des pages les plus visitées
     // Contrat :
     // Il faut que l'objet ReadFile file soit initialisé et passer dans le constructeur de StatLog
 
-    void makeDotFile( string dotFile );
+    void MakeDotFile (string dotFile);
     // Mode d'emploi :
     // On appelle la fonction pour créer le fichier dot
     // Contrat :
@@ -64,7 +47,7 @@ public:
 
 //-------------------------------------------- Constructeurs - destructeur
 
-    StatLog (ReadFile & file, int startHeure, bool extFilter, string baseURL, bool redirect);
+    StatLog (ReadFile & file, int startHour, bool extFilterOption, string localURL, bool redirectOption, bool verboseOption);
     // Mode d'emploi :
     // On appelle le constructeur pour créer un objet StatLog à partir d'un objet ReadFile
     // On peut filtrer les extensions et les heures à partir des paramètres.
@@ -81,22 +64,37 @@ public:
 
 protected:
 //----------------------------------------------------- Méthodes protégées
-    static bool compare ( pair < string, int > & a, pair < string, int > & b );
+    int convertHourToInt (const string & hourString) const;
+    // Mode d'emploi :
+    // Convertit une heure au format hh:mm:ss en un entier au format hhmmss
+    // Contrat :
+    // L'heure doit être au format hh:mm:ss
+    
+    void makeMapLine (ReadFile & file, bool extFilterOption, int startHour, string localURL, bool redirectOption, bool verboseOption);
+    // Mode d'emploi : On appelle la fonction pour ajouter une ligne au graph à partir des infos de
+    // l'objet ReadFile avec les différents méthodes get de l'objet ReadFile file. On peut filtrer 
+    // les extensions et les heures à partir des paramètres.
+    //
+    // Contrat : La méthode ne va pas récupérer les infos de la ligne suivante pour la suite
+    // La méthode vérifie si la requête est valide (code 400 ou 500) et les filtres avant d'inserer
+
+    void makeMap (ReadFile & file, bool extFilterOption, int startHour, string localURL, bool redirectOption, bool verboseOption);
+    // Mode d'emploi : On appelle la fonction pour créer le graphe complet à partir des infos du fichier log.
+    // On peut filtrer les extensions et les heures à partir des paramètres.
+    //
+    // Contrat : la méthoder récupère la ligne suivante
+    // Il faut que l'objet ReadFile file soit initialisé et passer dans le constructeur de StatLog
+
+    static bool compare (pair < string, int > & a, pair < string, int > & b);
     // Mode d'emploi :
     // Compare deux pairs de string et int
     // Contrat :
     // Les deux pairs doivent être initialisés
 
-    int convertHourInt(const string & heureString);
-    // Mode d'emploi :
-    // Convertit une heure au format hh:mm:ss en un entier au format hhmmss
-    // Contrat :
-    // L'heure doit être au format hh:mm:ss
-
-    string removeBaseURL(string & URL, string & baseURL);
+    string removeBaseURL (string & URL, string & localURL);
     
 //----------------------------------------------------- Attributs protégés
-    list < string > listeNode;
+    list < string > nodeList;
     map < string *, map < string *, int > > graph;
 };
 

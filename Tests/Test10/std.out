@@ -1,0 +1,158 @@
+----------------------- Options ------------------------
+option -v : Verbose mode
+option -e : .js, .css, .jpg, .gif, .png, .ico, .ics, .doc, .docx, .pdf, .xml, .zip and .txt extensions have been excluded
+option -u intranet-if.insa-lyon.fr : The local URL is intranet-if.insa-lyon.fr
+option -r : Redirection have been taken into account
+option -g test.dot : A dot-file named test.dot will be generated
+option -t 11 : Only hits between 11h and 12h have been taken into account
+ --------------------------------------------------------
+File anonymeCourt.log is being analyzed...
+----------------------- Process -------------------------
+-                                                  ->                      /cas/themes/insa/media/favicon.ico;jsessionid=ECC02D7B807C9B1B2299BA9E325800BC.dsi-vm03
+-                                                  ->                      /SiteWebIF/Intranet-etudiant.php
+-                                                  ->                      /SiteWebIF/Intranet-etudiant.php
+-                                                  ->                      /notesif
+-                                                  ->                      /notesif/
+-                                                  ->                      /cas/themes/insa/media/favicon.ico;jsessionid=1108212834EA61DD4CCDF371CE0DDF31.dsi-vm04
+if.insa-lyon.fr/                                   ->                      /SiteWebIF/Intranet-etudiant.php
+if.insa-lyon.fr-                                   ->                      /SiteWebIF/Intranet-etudiant.php?ticket=ST-19308-v7fPgl3hcmHt4NRvX7n5-dsi-vm04
+if.insa-lyon.fr-                                   ->                      /SiteWebIF/Intranet-etudiant.php
+/temps/3IF37.html                                  ->                      /temps/3IF38.html
+/temps/3IF38.html                                  ->                      /temps/3IF39.html
+/temps/3IF39.html                                  ->                      /temps/3IF40.html
+/SiteWebIF/Intranet-etudiant.php                   ->                      /stages/Listestage.php
+/temps/                                            ->                      /temps/3IF37.html
+/temps/3IF37.html                                  ->                      /temps/index.html
+-                                                  ->                      /cas/themes/insa/media/favicon.ico;jsessionid=665627F780692B12EA65060DE403DBE8.dsi-vm04
+-                                                  ->                      /temps/4IF44.html
+-                                                  ->                      /
+if.insa-lyon.fr/                                   ->                      /SiteWebIF/Intranet-etudiant.php
+if.insa-lyon.fr-                                   ->                      /SiteWebIF/Intranet-etudiant.php?ticket=ST-19442-CGw3IEKcJt5tkCegUuD9-dsi-vm04
+if.insa-lyon.fr-                                   ->                      /SiteWebIF/Intranet-etudiant.php
+if.insa-lyon.fr/                                   ->                      /SiteWebIF/Intranet-etudiant.php?ticket=ST-19448-HQIM6TGsVJOOFyu9r3t1-dsi-vm04
+if.insa-lyon.fr/                                   ->                      /SiteWebIF/Intranet-etudiant.php
+if.insa-lyon.fr/                                   ->                      /SiteWebIF/Intranet-etudiant.php?ticket=ST-19452-1jce9NBgrmEpQwOF0td9-dsi-vm04
+if.insa-lyon.fr/                                   ->                      /SiteWebIF/Intranet-etudiant.php
+if.insa-lyon.fr/                                   ->                      /SiteWebIF/Intranet-etudiant.php?ticket=ST-19453-KUridZwB9h22Qkw6t2ph-dsi-vm04
+if.insa-lyon.fr/                                   ->                      /SiteWebIF/Intranet-etudiant.php
+if.insa-lyon.fr-                                   ->                      /SiteWebIF/Intranet-etudiant.php
+if.insa-lyon.fr-                                   ->                      /SiteWebIF/Intranet-etudiant.php
+if.insa-lyon.fr-                                   ->                      /SiteWebIF/Intranet-etudiant.php
+if.insa-lyon.fr-                                   ->                      /SiteWebIF/Intranet-etudiant.php
+if.insa-lyon.fr-                                   ->                      /cas/themes/insa/media/favicon.ico;jsessionid=33717D8FCDEA3ED485EAB3288E130DE3.dsi-vm04
+www.google.com-                                    ->                      /temps/3IF44.html
+if.insa-lyon.fr/recherche/laboratoires-associes    ->                      /SiteWebIF/Intranet-etudiant.php
+if.insa-lyon.fr-                                   ->                      /SiteWebIF/Intranet-etudiant.php?ticket=ST-342400-BR7eop2OiRKoWEwXPEMQ-dsi-vm03
+if.insa-lyon.fr-                                   ->                      /SiteWebIF/Intranet-etudiant.php
+/temps/                                            ->                      /temps/3IF37.html
+/temps/3IF37.html                                  ->                      /temps/3IF38.html
+/temps/3IF38.html                                  ->                      /temps/3IF39.html
+/temps/3IF39.html                                  ->                      /temps/3IF40.html
+/temps/3IF40.html                                  ->                      /temps/3IF41.html
+/temps/3IF41.html                                  ->                      /temps/3IF42.html
+/temps/3IF42.html                                  ->                      /temps/index.html
+-                                                  ->                      /temps/3IF37.html
+-                                                  ->                      /cas/themes/insa/media/favicon.ico;jsessionid=640920203D0DDDC61BC720EC1D1ADA68.dsi-vm03
+if.insa-lyon.fr/                                   ->                      /SiteWebIF/Intranet-etudiant.php
+if.insa-lyon.fr-                                   ->                      /SiteWebIF/Intranet-etudiant.php
+-                                                  ->                      /temps/5IF47.html
+-                                                  ->                      /cas/themes/insa/media/favicon.ico;jsessionid=2AD5D5071A22496C3495D3DF360F2E55.dsi-vm03
+if.insa-lyon.fr/                                   ->                      /SiteWebIF/Intranet-etudiant.php
+if.insa-lyon.fr-                                   ->                      /SiteWebIF/Intranet-etudiant.php?ticket=ST-19678-kh2Kx4DkoFhBYkRAHAXq-dsi-vm04
+if.insa-lyon.fr-                                   ->                      /SiteWebIF/Intranet-etudiant.php
+/temps/                                            ->                      /temps/3IF37.html
+/temps/3IF37.html                                  ->                      /temps/3IF38.html
+/temps/3IF38.html                                  ->                      /temps/3IF39.html
+-                                                  ->                      /cas/themes/insa/media/favicon.ico;jsessionid=6C6C08976E471D57F312CC538346500A.dsi-vm04
+-                                                  ->                      /SiteWebIF/Intranet-etudiant.php
+if.insa-lyon.fr/                                   ->                      /SiteWebIF/Intranet-etudiant.php
+if.insa-lyon.fr-                                   ->                      /SiteWebIF/Intranet-etudiant.php?ticket=ST-342623-uVkCMVoq9NTZOoIgJhJO-dsi-vm03
+if.insa-lyon.fr-                                   ->                      /SiteWebIF/Intranet-etudiant.php
+/temps/                                            ->                      /temps/3IF37.html
+/temps/3IF37.html                                  ->                      /temps/3IF38.html
+-                                                  ->                      /cas/themes/insa/media/favicon.ico;jsessionid=DD8797EB34204AC770BD56F295585520.dsi-vm04
+-                                                  ->                      /SiteWebIF/Intranet-etudiant.php
+if.insa-lyon.fr/                                   ->                      /SiteWebIF/Intranet-etudiant.php
+-                                                  ->                      /SiteWebIF/Intranet-etudiant.php?ticket=ST-19823-ieePC0fRHEYdDQS7vQqO-dsi-vm04
+-                                                  ->                      /SiteWebIF/Intranet-etudiant.php
+/SiteWebIF/Intranet-etudiant.php                   ->                      /temps/
+/temps/                                            ->                      /temps/4IF37.html
+/temps/4IF37.html                                  ->                      /temps/4IF38.html
+/temps/3IF38.html                                  ->                      /temps/3IF39.html
+/temps/4IF38.html                                  ->                      /temps/4IF39.html
+/temps/3IF39.html                                  ->                      /temps/3IF40.html
+/temps/4IF39.html                                  ->                      /temps/4IF40.html
+/temps/4IF40.html                                  ->                      /temps/4IF41.html
+/temps/4IF41.html                                  ->                      /temps/4IF42.html
+/temps/4IF42.html                                  ->                      /temps/4IF43.html
+/temps/4IF43.html                                  ->                      /temps/4IF44.html
+/temps/4IF44.html                                  ->                      /temps/4IF45.html
+-                                                  ->                      /SiteWebIF/Intranet-etudiant.php
+-                                                  ->                      /SiteWebIF/Intranet-etudiant.php?ticket=ST-342699-X50gtfEpf5o9tdfrSnK4-dsi-vm03
+-                                                  ->                      /SiteWebIF/Intranet-etudiant.php
+if.insa-lyon.fr/                                   ->                      /SiteWebIF/Intranet-etudiant.php
+if.insa-lyon.fr-                                   ->                      /SiteWebIF/Intranet-etudiant.php?ticket=ST-342763-eUNX90FjIfaECKlzhGcH-dsi-vm03
+if.insa-lyon.fr-                                   ->                      /SiteWebIF/Intranet-etudiant.php
+/SiteWebIF/Intranet-etudiant.php                   ->                      /temps/SoutenancesPFE.html
+/SiteWebIF/Intranet-etudiant.php                   ->                      /stages/Listestage.php
+-                                                  ->                      /temps/
+/temps/                                            ->                      /temps/3IF37.html
+-                                                  ->                      /cas/themes/insa/media/favicon.ico;jsessionid=D608B9E2E4086B111372384FC0FEB79D.dsi-vm04
+/temps/3IF37.html                                  ->                      /temps/3IF38.html
+-                                                  ->                      /chercheurs/gcaplat/versionologie.html
+-                                                  ->                      /cas/themes/insa/media/favicon.ico;jsessionid=CFB94B626C9B1E8BC4CF1F0E0D41DC4C.dsi-vm04
+if.insa-lyon.fr/                                   ->                      /SiteWebIF/Intranet-etudiant.php
+if.insa-lyon.fr-                                   ->                      /SiteWebIF/Intranet-etudiant.php?ticket=ST-20080-hycMmVPg237ZS24go4QD-dsi-vm04
+if.insa-lyon.fr-                                   ->                      /SiteWebIF/Intranet-etudiant.php
+/SiteWebIF/Intranet-etudiant.php                   ->                      /stages/Listestage.php
+/temps/                                            ->                      /temps/3IF37.html
+if.insa-lyon.fr/                                   ->                      /SiteWebIF/Intranet-etudiant.php?ticket=ST-20120-6thEAtvZYsFiuf3A4z4d-dsi-vm04
+if.insa-lyon.fr/                                   ->                      /SiteWebIF/Intranet-etudiant.php
+if.insa-lyon.fr/                                   ->                      /SiteWebIF/Intranet-etudiant.php
+if.insa-lyon.fr-                                   ->                      /cas/themes/insa/media/favicon.ico;jsessionid=5B99C7D6EB49AA2B9AAF3DD7B7128296.dsi-vm03
+if.insa-lyon.fr-                                   ->                      /cas/themes/insa/media/favicon.ico;jsessionid=3D227DD976CCC8120204C76FCE297A5A.dsi-vm03
+if.insa-lyon.fr-                                   ->                      /notesif
+if.insa-lyon.fr-                                   ->                      /notesif/
+if.insa-lyon.fr-                                   ->                      /cas/themes/insa/media/favicon.ico;jsessionid=38D3D572D3B532567D072121FE3A4F23.dsi-vm03
+/temps/                                            ->                      /temps/3IF37.html
+if.insa-lyon.fr/                                   ->                      /SiteWebIF/Intranet-etudiant.php
+if.insa-lyon.fr-                                   ->                      /SiteWebIF/Intranet-etudiant.php?ticket=ST-20361-woDr42sSvX7JRUsbWt6e-dsi-vm04
+if.insa-lyon.fr-                                   ->                      /SiteWebIF/Intranet-etudiant.php
+/temps/4IF37.html                                  ->                      /temps/4IF38.html
+/temps/4IF38.html                                  ->                      /temps/4IF39.html
+/SiteWebIF/Intranet-etudiant.php                   ->                      /stages/Listestage.php
+/SiteWebIF/Intranet-etudiant.php                   ->                      /stages/Listestage.php
+-                                                  ->                      /cas/themes/insa/media/favicon.ico;jsessionid=F2287F8CE73F146C3DFD4FC863475715.dsi-vm03
+/temps/3IF37.html                                  ->                      /temps/3IF38.html
+/temps/3IF38.html                                  ->                      /temps/3IF39.html
+/temps/3IF39.html                                  ->                      /temps/3IF40.html
+-                                                  ->                      /SiteWebIF/Intranet-etudiant.php
+-                                                  ->                      /SiteWebIF/Intranet-etudiant.php?ticket=ST-343300-cjh3feN0WaHM5spIIeTQ-dsi-vm03
+-                                                  ->                      /SiteWebIF/Intranet-etudiant.php
+/SiteWebIF/Intranet-etudiant.php                   ->                      /notesif/
+/SiteWebIF/Intranet-etudiant.php                   ->                      /temps/
+/temps/                                            ->                      /temps/4IF37.html
+/temps/4IF37.html                                  ->                      /temps/4IF38.html
+if.insa-lyon.fr/                                   ->                      /SiteWebIF/Intranet-personnel.php
+if.insa-lyon.fr/                                   ->                      /SiteWebIF/Intranet-personnel.php?ticket=ST-343304-nCCSPVLi91zqB04K2wKh-dsi-vm03
+if.insa-lyon.fr/                                   ->                      /SiteWebIF/Intranet-personnel.php
+/SiteWebIF/Intranet-personnel.php                  ->                      /temps/SoutenancesPFE.html
+if.insa-lyon.fr/                                   ->                      /SiteWebIF/Intranet-etudiant.php
+if.insa-lyon.fr/                                   ->                      /SiteWebIF/Intranet-etudiant.php?ticket=ST-343326-yjqfchbnCRUkUIxhFi9B-dsi-vm03
+if.insa-lyon.fr/                                   ->                      /SiteWebIF/Intranet-etudiant.php
+---------------------------------------------------------
+Dot-file test.dot in generation...
+Dot-file test.dot generated
+Command to generate the graph : dot -Tpng test.dot -o out.png
+------------------------ Top 10 -------------------------
+        /SiteWebIF/Intranet-etudiant.php (39 hits)
+                       /temps/3IF37.html (8 hits)
+                       /temps/3IF38.html (6 hits)
+                  /stages/Listestage.php (5 hits)
+                       /temps/3IF39.html (5 hits)
+                       /temps/3IF40.html (4 hits)
+                       /temps/4IF38.html (3 hits)
+                               /notesif/ (3 hits)
+                                 /temps/ (3 hits)
+                       /temps/4IF37.html (2 hits)
+---------------------------------------------------------
