@@ -2,6 +2,8 @@
 
 Cette application permet de lire et d'analyser un fichier de logs apache.
 
+## Information
+Le fichier anonymeCourt.log est présent pour des besoins de test et pour essayer le programme à plus petite échelle si besoin.
 
 ## Fonctionnalités
 
@@ -21,7 +23,7 @@ Plusieurs options sont proposées :
 
 [-h] : affiche l'aide dans le terminal
 
-[-r] : permet de prendre en compte les redirections (status = "300" et urltraget = "-")
+[-r] : permet de prendre en compte les redirections (status = "300" et urltarget = "-")
 
 [-v] : mode verbose (affiche des informations supplémentaires sur les opérations effectuées)
 
