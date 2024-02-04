@@ -21,7 +21,7 @@ Plusieurs options sont proposées :
 
 [-h] : affiche l'aide dans le terminal
 
-[-r] : permet de prendre en compte les redirections 
+[-r] : permet de prendre en compte les redirections (status = "300" et urltraget = "-")
 
 [-v] : mode verbose
 
