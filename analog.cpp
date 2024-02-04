@@ -191,7 +191,7 @@ int main(int argc, char* argv[])
         cout << "-g dotFile : Generates a dot file" << endl;
         cout << "-u localURL : Allows you to specify a local URL (default: intranet-if.insa-lyon.fr)" << endl;
         cout << "-h : Displays the help" << endl;
-        cout << "-r : Takes into account the redirections" << endl; // A préciser
+        cout << "-r : Takes into account the redirections" << endl;
         cout << "-v : Verbose mode" << endl;  
         cout << "<file.log> : Log file to be analyzed" << endl;
         cout << "--------------------------------------------------------" << endl;
