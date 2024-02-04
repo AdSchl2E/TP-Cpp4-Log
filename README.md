@@ -11,9 +11,9 @@ Par défaut l'application affiche dans le terminal la liste des 10 documents les
 
 Plusieurs options sont proposées : 
 
-[-e] : exclut la liste d'extensions suivantes : .js, .css, .jpg, .gif, .png, .ico, .ics, .doc, .docx, .pdf, .xml, .zip et .txt.
+[-e] : exclut la liste d'extensions suivantes : .js, .css, .jpg, .gif, .png, .ico, .ics, .doc, .docx, .pdf, .xml, .zip et .txt
 
-[-t hour] : seuls les hits qui sont dans le créneau horaire correspondant à l’intervalle [heure, heure+1[ sont pris en compte.
+[-t hour] : seuls les hits qui sont dans le créneau horaire correspondant à l’intervalle [heure, heure+1[ sont pris en compte
 
 [-g dotFile] : produit un fichier au format GraphViz du graphe analysé
 
@@ -25,7 +25,7 @@ Plusieurs options sont proposées :
 
 [-v] : mode verbose
 
-<file.log> : le fichier à analyser, chaque ligne doit avoir la structure suivante qui suit
+<file.log> : le fichier à analyser, chaque ligne doit avoir la structure suivante
 
 **192.168.0.0 - - [08/Sep/2012 :11:16:02 +0200] "GET /temps/4IF16.html HTTP/1.1" 200 12106 "http://intranet-if.insa-lyon.fr/temps/4IF15.html"**
 **"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:14.0) Gecko/20100101 Firefox/14.0.1"**
